@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import SheetConfigForm from '@/components/sheet-config-form'
-import SlackConfigForm from '@/components/slack-config-form'
+// import SlackConfigForm from '@/components/slack-config-form'
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
             <SheetConfigForm />
           </TabsContent>
           <TabsContent value="slack">
-            <SlackConfigForm />
+            {/* <SlackConfigForm /> */}
           </TabsContent>
         </Tabs>
       </div>

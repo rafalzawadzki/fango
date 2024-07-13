@@ -1,5 +1,3 @@
-// mock user and connection table action, just replace the real database action
-
 import { nanoid } from 'nanoid'
 
 export async function getUserId() {
@@ -24,7 +22,11 @@ export async function getConnections(providerConfigKey?: string) {
   return con.filter((connection: any) => connection.type === providerConfigKey)
 }
 
-export async function addConnection(connectionId: string, connectionName: string, type = 'google-sheet') {
+export async function createConnection({
+  connectionId,
+  connectionName,
+  type = 'google-sheet',
+}: any) {
   const connection = {
     id: nanoid(),
     connectionId,
