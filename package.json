@@ -1,0 +1,16 @@
+{
+  "name": "fango",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd playground && npm run dev"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.21.0",
+    "eslint": "9.4.0"
+  }
+}
