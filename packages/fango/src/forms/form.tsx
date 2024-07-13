@@ -2,9 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { LoaderCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import type { z } from 'zod'
+import type { CreateFormParams } from '../types/form'
 import { FormItemType } from './enums'
-import { ConnectionForm, InputForm, Markdown, SelectForm, SwitchForm, ValueListForm } from './items'
-import type { CreateFormParams, FormItemConfigParams, FormItemControlParams } from './type'
 import { generateSchema } from './schema'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,47 +17,7 @@ import {
 
 const getCacheKey = (providerConfigKey: string, name: string) => `${providerConfigKey}:form-cache:${name}`
 
-function getFormControl(type: FormItemType) {
-  switch (type) {
-    case FormItemType.SWITCH:
-      return SwitchForm
-    case FormItemType.CONNECTION:
-      return ConnectionForm
-    case FormItemType.SELECT:
-      return SelectForm
-    case FormItemType.VALUE_LIST:
-      return ValueListForm
-    case FormItemType.INPUT:
-      return InputForm
-    case FormItemType.MARKDOWN:
-      return Markdown
-    default:
-      return InputForm
-  }
-}
-
-function createFormItem(config: FormItemConfigParams, type: FormItemType) {
-  const formControl = getFormControl(type)
-  return {
-    ...config,
-    type,
-    control: (controlConfig: FormItemControlParams) => formControl({
-      ...config,
-      ...controlConfig,
-    }),
-  }
-}
-
-export const FormItemFactory = {
-  Connection: (config: FormItemConfigParams) => createFormItem(config, FormItemType.CONNECTION),
-  Switch: (config: FormItemConfigParams) => createFormItem(config, FormItemType.SWITCH),
-  Select: (config: FormItemConfigParams) => createFormItem(config, FormItemType.SELECT),
-  ValueList: (config: FormItemConfigParams) => createFormItem(config, FormItemType.VALUE_LIST),
-  Input: (config: FormItemConfigParams) => createFormItem(config, FormItemType.INPUT),
-  Markdown: (config: FormItemConfigParams) => createFormItem(config, FormItemType.MARKDOWN),
-}
-
-export function CreateForm({ fields, run, providerConfigKey, authConfig }: CreateFormParams) {
+export function CreateForm({ fields, run, providerConfigKey, authConfig, onSave }: CreateFormParams) {
   const { schema, resolver } = generateSchema(fields)
   const formFields = fields.filter(field => !field.hidden)
 
@@ -95,6 +54,9 @@ export function CreateForm({ fields, run, providerConfigKey, authConfig }: Creat
   const onSubmit = async (values: z.infer<typeof schema>) => {
     setLoading(true)
     try {
+      if (onSave) {
+        await onSave(values)
+      }
       const res = await run(values)
       setRes(res)
     }

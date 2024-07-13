@@ -3,7 +3,7 @@ import { LoaderCircle, Plus } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { FormItemConfig } from '../type'
+import type { FormItemConfig } from '../../types/form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,

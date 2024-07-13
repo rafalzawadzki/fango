@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { debounce } from 'lodash'
 import { LoaderCircle, RefreshCw } from 'lucide-react'
-import type { FormItemConfig, SelectOption } from '../type'
+import type { FormItemConfig, SelectOption } from '../../types/form'
 import {
   Select,
   SelectContent,

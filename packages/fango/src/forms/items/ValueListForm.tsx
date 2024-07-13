@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { LoaderCircle, Plus, X } from 'lucide-react'
-import type { FormItemConfig } from '../type'
+import type { FormItemConfig } from '../../types/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 

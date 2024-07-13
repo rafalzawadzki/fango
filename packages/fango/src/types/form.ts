@@ -1,5 +1,5 @@
 import type { UseFormReturn } from 'react-hook-form'
-import type { FormItemType } from './enums'
+import type { FormItemType } from '../forms/enums'
 
 export interface ConnectionType {
   id: string
@@ -65,4 +65,5 @@ export interface CreateFormParams {
   providerConfigKey: string
   authConfig?: Record<string, any>
   run: (values: Record<string, any>) => Promise<any>
+  onSave?: (values: Record<string, any>) => Promise<any>
 }

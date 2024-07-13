@@ -1,10 +1,10 @@
 import { authConfig, commonField } from './form-common'
 import { sendMessageToChannelAction } from '@/action/slack'
-import type { CreateFormParams } from '@/forms/type'
-import { FormItemFactory } from '@/forms'
-import { PROVIDER_CONFIG_KEY } from '@/nango/slack/constants'
+import type { CreateFormParams } from '@/lib/forms/type'
+import { FormItemFactory } from '@/lib/forms'
+import { PROVIDER_CONFIG_KEY } from '@/lib/nango/slack/constants'
 
-export const sentMessageForm: CreateFormParams = {
+export const sendMessageForm: CreateFormParams = {
   name: 'Delete Row',
   providerConfigKey: PROVIDER_CONFIG_KEY,
   authConfig,
