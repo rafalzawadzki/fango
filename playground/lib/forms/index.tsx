@@ -1,7 +1,12 @@
-import { useEffect, useMemo, useState } from "react"
-import { LoaderCircle } from "lucide-react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { useEffect, useMemo, useState } from 'react'
+import { LoaderCircle } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { FormItemType } from './enums'
+import { ConnectionForm, InputForm, Markdown, SelectForm, SwitchForm, ValueListForm } from './items'
+import { CreateFormParams, FormItemConfigParams, FormItemControlParams } from './type'
+import { generateSchema } from './schema'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -9,16 +14,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Button } from '@/components/ui/button'
-import { FormItemType } from "./enums";
-import { SwitchForm, ConnectionForm, InputForm, SelectForm, ValueListForm, Markdown } from "./items";
-import { CreateFormParams, FormItemConfigParams, FormItemControlParams } from "./type";
-import { generateSchema } from "./schema"
+} from '@/components/ui/form'
 
 const getCacheKey = (providerConfigKey: string, name: string) => `${providerConfigKey}:form-cache:${name}`
 
-const getFormControl = (type: FormItemType) => {
+function getFormControl(type: FormItemType) {
   switch (type) {
     case FormItemType.SWITCH:
       return SwitchForm
@@ -37,7 +37,7 @@ const getFormControl = (type: FormItemType) => {
   }
 }
 
-const createFormItem = (config: FormItemConfigParams, type: FormItemType) => {
+function createFormItem(config: FormItemConfigParams, type: FormItemType) {
   const formControl = getFormControl(type)
   return {
     ...config,
@@ -58,9 +58,9 @@ export const FormItemFactory = {
   Markdown: (config: FormItemConfigParams) => createFormItem(config, FormItemType.MARKDOWN),
 }
 
-export const CreateForm = ({ fields, run, providerConfigKey, authConfig }: CreateFormParams) => {
+export function CreateForm({ fields, run, providerConfigKey, authConfig }: CreateFormParams) {
   const { schema, resolver } = generateSchema(fields)
-  const formFields = fields.filter((field) => !field.hidden)
+  const formFields = fields.filter(field => !field.hidden)
 
   const form = useForm<z.infer<typeof schema>>({ resolver })
 
@@ -68,7 +68,7 @@ export const CreateForm = ({ fields, run, providerConfigKey, authConfig }: Creat
   const [res, setRes] = useState<any>()
 
   const cachedFields = useMemo(() => {
-    return fields.filter((field) => !!field.cache).map((field) => field.fieldName)
+    return fields.filter(field => !!field.cache).map(field => field.fieldName)
   }, [fields])
 
   useEffect(() => {
@@ -97,7 +97,8 @@ export const CreateForm = ({ fields, run, providerConfigKey, authConfig }: Creat
     try {
       const res = await run(values)
       setRes(res)
-    } catch (e: any) {
+    }
+    catch (e: any) {
       const message = e.message
       setRes({ error: { message } })
       console.error(e)
@@ -118,37 +119,43 @@ export const CreateForm = ({ fields, run, providerConfigKey, authConfig }: Creat
                 render={({ field }) => (
                   <FormItem>
                     {
-                      formField.type !== FormItemType.SWITCH &&
-                      formField.label &&
-                      <FormLabel>{formField.label} </FormLabel>
+                      formField.type !== FormItemType.SWITCH
+                      && formField.label
+                      && (
+                        <FormLabel>
+                          {formField.label}
+                          {' '}
+                        </FormLabel>
+                      )
                     }
                     <FormControl>
                       {
                         formField.control({
-                          field, form,
+                          field,
+                          form,
                           providerConfigKey,
-                          authConfig
+                          authConfig,
                         })
                       }
                     </FormControl>
-                    < FormMessage />
+                    <FormMessage />
                   </FormItem>
                 )}
               />
             )
           })
         }
-        <Button type="submit" className="w-full" disabled={loading} >
-          {loading ? <LoaderCircle size={32} className='animate-spin' /> : 'Submit'}
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? <LoaderCircle size={32} className="animate-spin" /> : 'Submit'}
         </Button>
       </form>
       {
         !!res && (
-          <pre className="prose lg:prose-xl mt-2 p-2 w-full text-sky-600 overflow-auto border rounded-sm" >
+          <pre className="prose lg:prose-xl mt-2 p-2 w-full text-sky-600 overflow-auto border rounded-sm">
             {JSON.stringify(res, null, 2)}
           </pre>
         )
       }
-    </Form >
+    </Form>
   )
 }

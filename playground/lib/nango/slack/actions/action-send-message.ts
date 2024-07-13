@@ -1,38 +1,40 @@
-import { nango } from "@/lib/nango/common/nango-node";
-import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from "../constants";
-import { findConnectionCredentials } from "./common";
-import { processMessageTimestamp } from "../utils";
+import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
+import { processMessageTimestamp } from '../utils'
+import { findConnectionCredentials } from './common'
+import { nango } from '@/lib/nango/common/nango-node'
 
 export interface SendMessageToChannelParams {
-  connectionId: string;
-  text: string;
-  conversationId: string;
-  username?: string;
-  profilePicture?: string;
-  threadTs?: string;
+  connectionId: string
+  text: string
+  conversationId: string
+  username?: string
+  profilePicture?: string
+  threadTs?: string
 }
 
-export const sendMessageToChannel = async ({
+export async function sendMessageToChannel({
   connectionId,
   text,
   conversationId,
   username,
   profilePicture,
-  threadTs
-}: SendMessageToChannelParams) => {
-
+  threadTs,
+}: SendMessageToChannelParams) {
   const { access_token } = await findConnectionCredentials(connectionId)
 
   const data: any = {
     text,
     channel: conversationId,
-  };
+  }
 
-  threadTs = threadTs ? processMessageTimestamp(threadTs) : undefined;
+  threadTs = threadTs ? processMessageTimestamp(threadTs) : undefined
 
-  if (username) data['username'] = username;
-  if (profilePicture) data['icon_url'] = profilePicture;
-  if (threadTs) data['thread_ts'] = threadTs;
+  if (username)
+    data.username = username
+  if (profilePicture)
+    data.icon_url = profilePicture
+  if (threadTs)
+    data.thread_ts = threadTs
 
   const response = await nango.proxy({
     baseUrlOverride: BASIC_URL_PREFIX,
@@ -42,23 +44,23 @@ export const sendMessageToChannel = async ({
     connectionId,
     data,
     headers: {
-      Authorization: `Bearer ${access_token}`
-    }
+      Authorization: `Bearer ${access_token}`,
+    },
   })
 
   if (!response.data.ok) {
     switch (response.data.error) {
       case 'not_in_channel':
         throw new Error(
-          'The bot is not in the channel'
+          'The bot is not in the channel',
           // JSON.stringify({
           //   message: 'The bot is not in the channel',
           //   code: 'not_in_channel',
           //   action: 'Invite the bot from the channel settings',
           // })
-        );
+        )
       default: {
-        throw new Error(response.data.error);
+        throw new Error(response.data.error)
       }
     }
   }
@@ -67,5 +69,5 @@ export const sendMessageToChannel = async ({
     success: true,
     request_body: data,
     response_body: response.data,
-  };
+  }
 }

@@ -1,19 +1,19 @@
-import { nango } from "@/lib/nango/common/nango-node"
-import { findConnectionCredentials, findSheetName } from "./common"
-import { stringifyArray } from "@/lib/nango/google-sheets/utils";
-import { Dimension, ValueInputOption } from "../enums";
-import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from "../constants";
+import { Dimension, ValueInputOption } from '../enums'
+import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
+import { findConnectionCredentials, findSheetName } from './common'
+import { nango } from '@/lib/nango/common/nango-node'
+import { stringifyArray } from '@/lib/nango/google-sheets/utils'
 
 export interface UpdateSheetRowParams {
-  connectionId: string;
-  spreadsheetId: string;
-  sheetId: number;
-  values: string[];
-  rowId: string;
-  firstRowHeaders?: boolean;
+  connectionId: string
+  spreadsheetId: string
+  sheetId: number
+  values: string[]
+  rowId: string
+  firstRowHeaders?: boolean
 }
 
-export const updateSheetRow = async ({ spreadsheetId, connectionId, sheetId, values, rowId }: UpdateSheetRowParams) => {
+export async function updateSheetRow({ spreadsheetId, connectionId, sheetId, values, rowId }: UpdateSheetRowParams) {
   const credentials = await findConnectionCredentials(connectionId)
   const accessToken = credentials.access_token
 
@@ -21,12 +21,12 @@ export const updateSheetRow = async ({ spreadsheetId, connectionId, sheetId, val
     sheetId,
     spreadsheetId,
     connectionId,
-    accessToken
+    accessToken,
   })
 
-  const formattedValues = values.map((value) =>
-    value === '' ? null : value
-  );
+  const formattedValues = values.map(value =>
+    value === '' ? null : value,
+  )
   if (formattedValues.length > 0) {
     const rowIndex = Number(rowId)
     values = stringifyArray(formattedValues)
@@ -35,7 +35,7 @@ export const updateSheetRow = async ({ spreadsheetId, connectionId, sheetId, val
       majorDimension: Dimension.ROWS,
       range: `${sheetName}!A${rowIndex}:ZZZ${rowIndex}`,
       values: [values],
-    };
+    }
     const res = await nango.proxy({
       baseUrlOverride: BASIC_URL_PREFIX,
       endpoint: `/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A${rowIndex}:ZZZ${rowIndex}`,
@@ -47,22 +47,23 @@ export const updateSheetRow = async ({ spreadsheetId, connectionId, sheetId, val
         valueInputOption: ValueInputOption.USER_ENTERED,
       },
       headers: {
-        Authorization: `Bearer ${credentials.access_token}`
-      }
+        Authorization: `Bearer ${credentials.access_token}`,
+      },
     })
 
-    const updatedRangeParts = res.data.updatedRange.split('!');
-    const updatedRowRange = updatedRangeParts[1];
-    const updatedRowNumber = parseInt(
+    const updatedRangeParts = res.data.updatedRange.split('!')
+    const updatedRowRange = updatedRangeParts[1]
+    const updatedRowNumber = Number.parseInt(
       updatedRowRange.split(':')[0].substring(1),
-      10
-    );
+      10,
+    )
 
-    return { updates: { ...res.data }, row: updatedRowNumber };
-  } else {
-    throw Error(
-      'Values passed are empty or not array ' +
-      JSON.stringify(formattedValues)
-    );
+    return { updates: { ...res.data }, row: updatedRowNumber }
+  }
+  else {
+    throw new Error(
+      `Values passed are empty or not array ${
+      JSON.stringify(formattedValues)}`,
+    )
   }
 }

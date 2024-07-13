@@ -1,8 +1,8 @@
-import { sendMessageToChannelAction } from "@/action/slack";
-import { commonField, authConfig } from "./form-common";
-import { CreateFormParams } from "@/lib/forms/type";
-import { FormItemFactory } from "@/lib/forms";
-import { PROVIDER_CONFIG_KEY } from "@/lib/nango/slack/constants";
+import { authConfig, commonField } from './form-common'
+import { sendMessageToChannelAction } from '@/action/slack'
+import { CreateFormParams } from '@/lib/forms/type'
+import { FormItemFactory } from '@/lib/forms'
+import { PROVIDER_CONFIG_KEY } from '@/lib/nango/slack/constants'
 
 export const sentMessageForm: CreateFormParams = {
   name: 'Delete Row',
@@ -37,8 +37,8 @@ export const sentMessageForm: CreateFormParams = {
       conversationId: channel,
       username,
       profilePicture,
-      threadTs
+      threadTs,
     })
     return res
-  }
+  },
 }

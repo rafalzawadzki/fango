@@ -1,19 +1,19 @@
-import { nango } from "@/lib/nango/common/nango-node"
-import { findConnectionCredentials } from "./common"
-import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from "../constants";
+import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
+import { findConnectionCredentials } from './common'
+import { nango } from '@/lib/nango/common/nango-node'
 
 export interface DeleteSheetRowParams {
-  connectionId: string;
-  spreadsheetId: string;
-  sheetId: number;
-  rowId: string;
+  connectionId: string
+  spreadsheetId: string
+  sheetId: number
+  rowId: string
 }
 
-export const deleteSheetRow = async ({ spreadsheetId, connectionId, sheetId, rowId }: DeleteSheetRowParams) => {
+export async function deleteSheetRow({ spreadsheetId, connectionId, sheetId, rowId }: DeleteSheetRowParams) {
   const credentials = await findConnectionCredentials(connectionId)
   const accessToken = credentials.access_token
 
-  const adjustedRowIndex = (Number(rowId) || 1) - 1;
+  const adjustedRowIndex = (Number(rowId) || 1) - 1
 
   const res = await nango.proxy({
     baseUrlOverride: BASIC_URL_PREFIX,
@@ -26,7 +26,7 @@ export const deleteSheetRow = async ({ spreadsheetId, connectionId, sheetId, row
         {
           deleteDimension: {
             range: {
-              sheetId: sheetId,
+              sheetId,
               dimension: 'ROWS',
               startIndex: adjustedRowIndex,
               endIndex: adjustedRowIndex + 1,
@@ -36,12 +36,12 @@ export const deleteSheetRow = async ({ spreadsheetId, connectionId, sheetId, row
       ],
     },
     headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
+      Authorization: `Bearer ${accessToken}`,
+    },
   })
 
   return {
     success: true,
     body: res.data,
-  };
+  }
 }

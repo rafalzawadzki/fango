@@ -1,9 +1,9 @@
-import { SwitchForm } from "./SwitchForm";
-import { ConnectionForm } from "./ConnectionForm";
-import { SelectForm } from "./SelectForm";
-import { InputForm } from "./InputForm";
-import { ValueListForm } from "./ValueListForm";
-import { Markdown } from "./Markdown";
+import { SwitchForm } from './SwitchForm'
+import { ConnectionForm } from './ConnectionForm'
+import { SelectForm } from './SelectForm'
+import { InputForm } from './InputForm'
+import { ValueListForm } from './ValueListForm'
+import { Markdown } from './Markdown'
 
 export {
   SwitchForm,
@@ -11,5 +11,5 @@ export {
   SelectForm,
   InputForm,
   ValueListForm,
-  Markdown
+  Markdown,
 }

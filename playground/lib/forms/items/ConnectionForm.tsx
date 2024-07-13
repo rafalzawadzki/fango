@@ -2,8 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { LoaderCircle, Plus } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FormItemConfig } from '../type'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -11,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -19,16 +20,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { FormItemConfig } from '../type'
+} from '@/components/ui/select'
 import { addConnection, getConnections, getUserId, updateConnection } from '@/lib/database'
 import { nango } from '@/lib/nango/common/nango'
 import { generateConnectionId } from '@/lib/utils'
@@ -44,12 +44,12 @@ const connectionSchema = z.object({
 const connectionFormResolver = zodResolver(connectionSchema)
 type ConnectionFormType = z.infer<typeof connectionSchema>
 
-export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: FormItemConfig) => {
+export function ConnectionForm({ field, form, providerConfigKey, authConfig }: FormItemConfig) {
   const addForm = useForm<ConnectionFormType>({
-    resolver: connectionFormResolver
+    resolver: connectionFormResolver,
   })
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   const [connections, setConnections] = useState<ConnectionType[]>([])
   const [loading, setLoading] = useState(false)
   const [auth, setAuth] = useState(false)
@@ -85,14 +85,16 @@ export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: F
   }
   const handleAuth = async () => {
     const valid = await addForm.trigger('name')
-    if (!valid || !providerConfigKey) return
+    if (!valid || !providerConfigKey)
+      return
     setLoading(true)
     try {
       if (editingConnectionId) {
         await nango.auth(providerConfigKey, editingConnectionId, {
-          detectClosedAuthWindow: true
+          detectClosedAuthWindow: true,
         })
-      } else {
+      }
+      else {
         const userId = await getUserId()
         const id = generateConnectionId(userId)
         addConnectionId.current = id
@@ -103,7 +105,8 @@ export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: F
         setEditingConnectionId(id)
       }
       setAuth(true)
-    } catch (e) {
+    }
+    catch (e) {
       console.error(e)
     }
     setLoading(false)
@@ -114,11 +117,13 @@ export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: F
     setOpen(false)
   }
   const handleSave = async () => {
-    if (!addConnectionId.current && !editingConnectionId) return
+    if (!addConnectionId.current && !editingConnectionId)
+      return
     setLoading(true)
     if (addConnectionId.current) {
       await addConnection(addConnectionId.current, addForm.getValues('name'), providerConfigKey)
-    } else {
+    }
+    else {
       await updateConnection(editingConnectionId, addForm.getValues('name'))
     }
     await handleRefreshConnections()
@@ -129,8 +134,9 @@ export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: F
   }
 
   const handleRefresh = async () => {
-    const connection = connections.find((connection) => connection.id === field.value)
-    if (!connection) return
+    const connection = connections.find(connection => connection.id === field.value)
+    if (!connection)
+      return
     setAuth(true)
     setEditingConnectionId(connection.id)
     addForm.setValue('name', connection.name || '')
@@ -139,7 +145,7 @@ export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: F
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <div className='relative'>
+      <div className="relative">
         <Select
           value={field.value}
           onValueChange={(value) => {
@@ -152,12 +158,14 @@ export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: F
           </SelectTrigger>
           <SelectContent>
             <DialogTrigger asChild>
-              <div className='flex items-center justify-center gap-1 h-10 text-sm border-b cursor-pointer'>
-                <Plus className='w-4 h-4' /> New Connection
+              <div className="flex items-center justify-center gap-1 h-10 text-sm border-b cursor-pointer">
+                <Plus className="w-4 h-4" />
+                {' '}
+                New Connection
               </div>
             </DialogTrigger>
             {
-              connections.map((connection) => (
+              connections.map(connection => (
                 <SelectItem key={connection.id} value={connection.id}>
                   {connection.name}
                 </SelectItem>
@@ -170,9 +178,11 @@ export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: F
             <Button
               className="absolute -top-10 right-0 cursor-pointer flex-shrink-0 text-primary-500 hover:text-primary-500/80  z-1000"
               variant="link"
-              type='button'
+              type="button"
               onClick={handleRefresh}
-            >Reconnection</Button>
+            >
+              Reconnection
+            </Button>
           )
         }
       </div>
@@ -196,33 +206,37 @@ export const ConnectionForm = ({ field, form, providerConfigKey, authConfig }: F
               )}
             />
             {
-              (auth && !!editingConnectionId) ? (
-                <Button
-                  className='w-full'
-                  variant="destructive"
-                  type="button"
-                  onClick={handleDisconnect}
-                >Disconnect</Button>
-              ) : (
-                <Button
-                  className='w-full'
-                  onClick={handleAuth}
-                  disabled={loading}
-                  type="button"
-                >
-                  {loading ? <LoaderCircle size={32} className='animate-spin' /> : 'Connect'}
-                </Button>
-              )
+              (auth && !!editingConnectionId)
+                ? (
+                    <Button
+                      className="w-full"
+                      variant="destructive"
+                      type="button"
+                      onClick={handleDisconnect}
+                    >
+                      Disconnect
+                    </Button>
+                  )
+                : (
+                    <Button
+                      className="w-full"
+                      onClick={handleAuth}
+                      disabled={loading}
+                      type="button"
+                    >
+                      {loading ? <LoaderCircle size={32} className="animate-spin" /> : 'Connect'}
+                    </Button>
+                  )
             }
           </form>
-        </Form >
+        </Form>
         <DialogFooter>
           <Button variant="outline" onClick={handleCancel}>Cancel</Button>
           <Button onClick={handleSave} disabled={loading || !auth}>
-            {loading ? <LoaderCircle size={32} className='animate-spin' /> : 'Save'}
+            {loading ? <LoaderCircle size={32} className="animate-spin" /> : 'Save'}
           </Button>
         </DialogFooter>
       </DialogContent>
-    </Dialog >
+    </Dialog>
   )
 }

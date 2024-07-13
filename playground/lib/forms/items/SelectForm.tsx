@@ -1,18 +1,18 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { debounce } from 'lodash'
-import { LoaderCircle, RefreshCw } from "lucide-react";
+import { LoaderCircle, RefreshCw } from 'lucide-react'
+import { FormItemConfig, SelectOption } from '../type'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Input } from "@/components/ui/input";
-import { FormItemConfig, SelectOption } from "../type";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 
-export const SelectForm = ({ field, form, refreshers, options, placeholder, showSearch }: FormItemConfig) => {
+export function SelectForm({ field, form, refreshers, options, placeholder, showSearch }: FormItemConfig) {
   const isOptionsObj = typeof options === 'object'
   const [items, setItems] = useState<SelectOption[]>(isOptionsObj ? options?.options : [])
   const [disabled, setDisabled] = useState(isOptionsObj ? options?.disabled : false)
@@ -21,8 +21,9 @@ export const SelectForm = ({ field, form, refreshers, options, placeholder, show
   const [searchValue, setSearchValue] = useState('')
 
   const filteredItems = useMemo(() => {
-    if (!searchValue) return items
-    return items.filter((item) => item.label.toLowerCase().includes(searchValue.toLowerCase()))
+    if (!searchValue)
+      return items
+    return items.filter(item => item.label.toLowerCase().includes(searchValue.toLowerCase()))
   }, [items, searchValue])
 
   const refreshOptions = useCallback(async (values: any, searchValue?: string) => {
@@ -32,12 +33,13 @@ export const SelectForm = ({ field, form, refreshers, options, placeholder, show
         const res = await options(values, {
           form,
           field,
-          searchValue
+          searchValue,
         })
         setItems(res.options)
         setDisabled(res.disabled)
         setEmptyText(res.placeholder)
-      } catch (e) {
+      }
+      catch (e) {
         console.error(e)
       }
       setLoading(false)
@@ -52,11 +54,12 @@ export const SelectForm = ({ field, form, refreshers, options, placeholder, show
   }, [])
 
   useEffect(() => {
-    if (typeof options !== 'function') return;
+    if (typeof options !== 'function')
+      return
 
     const subscription = form.watch((value, { name, type }) => {
       if (type === 'change' && refreshers?.includes(name as string)) {
-        const values = refreshers.map((name) => value[name])
+        const values = refreshers.map(name => value[name])
         refreshOptions(values)
       }
     })
@@ -68,15 +71,16 @@ export const SelectForm = ({ field, form, refreshers, options, placeholder, show
   }, 500)
 
   const handleRefresh = async (e: any) => {
-    if (loading) return
+    if (loading)
+      return
     e.stopPropagation()
-    const values = refreshers?.map((name) => form.getValues(name as any)) || []
+    const values = refreshers?.map(name => form.getValues(name as any)) || []
     await refreshOptions(values)
   }
 
   return (
     <div className="relative">
-      <Select onValueChange={field.onChange} value={String(field.value || "")}>
+      <Select onValueChange={field.onChange} value={String(field.value || '')}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
@@ -85,16 +89,19 @@ export const SelectForm = ({ field, form, refreshers, options, placeholder, show
             emptyText && !items.length && !loading && <div className="flex items-center justify-center text-muted-foreground h-10">{emptyText}</div>
           }
           {
-            loading && <div className="flex items-center justify-center text-muted-foreground h-10">
-              <LoaderCircle size={32} className='animate-spin' />
-            </div>
+            loading && (
+              <div className="flex items-center justify-center text-muted-foreground h-10">
+                <LoaderCircle size={32} className="animate-spin" />
+              </div>
+            )
           }
           {
             !!items.length && showSearch && (
               <div className="px-4 py-2">
                 <Input placeholder="Search" onChange={handleSearchChange} />
               </div>
-            )}
+            )
+          }
           {
             filteredItems.map((item, index) => (
               <SelectItem disabled={disabled} key={index} value={String(item.value)}>{item.label}</SelectItem>
@@ -107,7 +114,7 @@ export const SelectForm = ({ field, form, refreshers, options, placeholder, show
           <RefreshCw
             size={20}
             className={cn(
-              "absolute -top-8 right-0 cursor-pointer flex-shrink-0 mr-2 text-gray-500 z-1000",
+              'absolute -top-8 right-0 cursor-pointer flex-shrink-0 mr-2 text-gray-500 z-1000',
               loading && 'text-gray-300 animate-spin',
             )}
             onClick={handleRefresh}

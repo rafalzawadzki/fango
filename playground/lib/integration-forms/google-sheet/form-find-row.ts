@@ -1,8 +1,8 @@
-import { findSheetNameAction, getSheetValuesAction, findSheetRowAction } from "@/action/google-sheets";
-import { FormItemFactory } from "@/lib/forms";
-import { commonField } from "./form-common";
-import { CreateFormParams } from "@/lib/forms/type";
-import { PROVIDER_CONFIG_KEY } from "@/lib/nango/google-sheets/constants";
+import { commonField } from './form-common'
+import { findSheetNameAction, findSheetRowAction, getSheetValuesAction } from '@/action/google-sheets'
+import { FormItemFactory } from '@/lib/forms'
+import { CreateFormParams } from '@/lib/forms/type'
+import { PROVIDER_CONFIG_KEY } from '@/lib/nango/google-sheets/constants'
 
 export const findRowForm: CreateFormParams = {
   name: 'Find Row',
@@ -26,81 +26,83 @@ export const findRowForm: CreateFormParams = {
           field.onChange('')
         }
         if (
-          (spreadsheetId ?? '').toString().length === 0 ||
-          (sheetId ?? '').toString().length === 0
+          (spreadsheetId ?? '').toString().length === 0
+          || (sheetId ?? '').toString().length === 0
         ) {
           return {
             disabled: true,
             options: [],
             placeholder: 'Please select a sheet first',
-          };
+          }
         }
 
         const sheetName = await findSheetNameAction({
           spreadsheetId,
           sheetId,
           connectionId,
-        });
+        })
 
         if (!sheetName) {
-          throw Error('Sheet not found in spreadsheet');
+          throw new Error('Sheet not found in spreadsheet')
         }
 
         const values: {
-          row: number;
+          row: number
           values: {
-            [x: string]: string[];
-          }[];
+            [x: string]: string[]
+          }[]
         }[] = await getSheetValuesAction({
           sheetId,
           spreadsheetId,
           connectionId,
-        });
+        })
 
-        const ret = [];
+        const ret = []
 
-        const firstRow = values[0].values;
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const firstRow = values[0].values
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
         if (firstRow.length === 0) {
-          let columnSize = 1;
+          let columnSize = 1
 
           for (const row of values) {
-            columnSize = Math.max(columnSize, row.values.length);
+            columnSize = Math.max(columnSize, row.values.length)
           }
 
           for (let i = 0; i < columnSize; i++) {
             ret.push({
               label: alphabet[i].toUpperCase(),
               value: alphabet[i],
-            });
+            })
           }
-        } else {
-          let index = 0;
+        }
+        else {
+          let index = 0
           for (const key in firstRow) {
-            let value = 'A';
+            let value = 'A'
             if (index >= alphabet.length) {
               // if the index is greater than the length of the alphabet, we need to add another letter
-              const firstLetter =
-                alphabet[Math.floor(index / alphabet.length) - 1];
-              const secondLetter = alphabet[index % alphabet.length];
-              value = firstLetter + secondLetter;
-            } else {
-              value = alphabet[index];
+              const firstLetter
+                = alphabet[Math.floor(index / alphabet.length) - 1]
+              const secondLetter = alphabet[index % alphabet.length]
+              value = firstLetter + secondLetter
+            }
+            else {
+              value = alphabet[index]
             }
 
             ret.push({
               label: firstRow[key].toString(),
-              value: value,
-            });
-            index++;
+              value,
+            })
+            index++
           }
         }
         return {
           options: ret,
           disabled: false,
-        };
-      }
+        }
+      },
     }),
     FormItemFactory.Input({
       fieldName: 'searchValue',
@@ -135,5 +137,5 @@ export const findRowForm: CreateFormParams = {
       matchCase: values.matchCase,
     })
     return res
-  }
+  },
 }

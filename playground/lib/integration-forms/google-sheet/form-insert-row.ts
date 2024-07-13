@@ -1,8 +1,8 @@
-import { insertSheetRowAction } from "@/action/google-sheets";
-import { FormItemFactory } from "@/lib/forms";
-import { commonField } from "./form-common";
-import { CreateFormParams } from "@/lib/forms/type";
-import { PROVIDER_CONFIG_KEY } from "@/lib/nango/google-sheets/constants";
+import { commonField } from './form-common'
+import { insertSheetRowAction } from '@/action/google-sheets'
+import { FormItemFactory } from '@/lib/forms'
+import { CreateFormParams } from '@/lib/forms/type'
+import { PROVIDER_CONFIG_KEY } from '@/lib/nango/google-sheets/constants'
 
 export const insertRowForm: CreateFormParams = {
   name: 'Insert Row',
@@ -19,7 +19,7 @@ export const insertRowForm: CreateFormParams = {
       tip: 'Inserted values that are dates and formulas will be entered strings and have no effect',
     }),
     commonField.firstRowHeaders,
-    commonField.values
+    commonField.values,
   ],
   run: async (values: any) => {
     const res = await insertSheetRowAction({
@@ -30,5 +30,5 @@ export const insertRowForm: CreateFormParams = {
       values: values.values || [],
     })
     return res
-  }
+  },
 }

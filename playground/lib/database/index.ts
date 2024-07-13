@@ -2,7 +2,7 @@
 
 import { nanoid } from 'nanoid'
 
-export const getUserId = async () => {
+export async function getUserId() {
   const userId = localStorage.getItem('userId')
   if (!userId) {
     const newUserId = nanoid()
@@ -12,7 +12,7 @@ export const getUserId = async () => {
   return userId
 }
 
-export const getConnections = async (providerConfigKey?: string) => {
+export async function getConnections(providerConfigKey?: string) {
   const connections = localStorage.getItem('connections')
   if (!connections) {
     return []
@@ -24,7 +24,7 @@ export const getConnections = async (providerConfigKey?: string) => {
   return con.filter((connection: any) => connection.type === providerConfigKey)
 }
 
-export const addConnection = async (connectionId: string, connectionName: string, type = 'google-sheet') => {
+export async function addConnection(connectionId: string, connectionName: string, type = 'google-sheet') {
   const connection = {
     id: nanoid(),
     connectionId,
@@ -37,7 +37,7 @@ export const addConnection = async (connectionId: string, connectionName: string
   return connection
 }
 
-export const updateConnection = async (connectionId: string, connectionName: string) => {
+export async function updateConnection(connectionId: string, connectionName: string) {
   const connections = await getConnections()
   const index = connections.findIndex((connection: any) => connection.connectionId === connectionId)
   connections[index].connectionName = connectionName

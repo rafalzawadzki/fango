@@ -1,9 +1,8 @@
-import { findChannelsAction } from "@/action/slack";
-import { FormItemFactory } from "@/lib/forms";
-import { PROVIDER_CONFIG_KEY } from "@/lib/nango/slack/constants";
+import { findChannelsAction } from '@/action/slack'
+import { FormItemFactory } from '@/lib/forms'
 
 export const authConfig = {
-  user_scope: ['search:read', 'users.profile:write']
+  user_scope: ['search:read', 'users.profile:write'],
 }
 
 export const commonField = {
@@ -11,7 +10,7 @@ export const commonField = {
     fieldName: 'auth',
     label: 'Auth',
     hidden: true,
-    cache: true
+    cache: true,
   }),
   connectionId: FormItemFactory.Connection({
     fieldName: 'connectionId',
@@ -26,26 +25,27 @@ export const commonField = {
     cache: true,
     showSearch: true,
     tip: 'Channel, private group, or IM channel to send message to.',
-    placeholder: "Select a channel",
+    placeholder: 'Select a channel',
     refreshers: ['connectionId'],
     options: async (deps, { form, field }) => {
       if (field.value) {
         field.onChange('')
       }
       const [connectionId] = deps || []
-      if (!connectionId)
+      if (!connectionId) {
         return {
           disabled: false,
           placeholder: 'Connect slack account first',
           options: [],
         }
+      }
 
       const channels = await findChannelsAction(connectionId)
       return {
         options: channels || [],
         disabled: false,
       }
-    }
+    },
   }),
   username: FormItemFactory.Input({
     fieldName: 'username',
@@ -64,6 +64,6 @@ export const commonField = {
 	Please make sure add the bot to the channel by following these steps:
 	  1. Type /invite in the channel's chat.
 	  2. Click on Add apps to this channel.
-	  3. Search for and add the bot.`
+	  3. Search for and add the bot.`,
   }),
 }

@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import {
   Form,
   FormControl,
@@ -9,28 +9,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { ActionFormType, ActionType, actionResolver } from "@/lib/schema"
-import { CreateForm } from "@/lib/forms"
-import { CreateFormParams } from "@/lib/forms/type"
-import { insertRowForm } from "@/lib/integration-forms/google-sheet/form-insert-row"
-import { updateRowForm } from "@/lib/integration-forms/google-sheet/form-update-row"
-import { deleteRowForm } from "@/lib/integration-forms/google-sheet/form-delete-row"
-import { findRowForm } from "@/lib/integration-forms/google-sheet/form-find-row"
+} from '@/components/ui/select'
+import { ActionFormType, ActionType, actionResolver } from '@/lib/schema'
+import { CreateForm } from '@/lib/forms'
+import { CreateFormParams } from '@/lib/forms/type'
+import { insertRowForm } from '@/lib/integration-forms/google-sheet/form-insert-row'
+import { updateRowForm } from '@/lib/integration-forms/google-sheet/form-update-row'
+import { deleteRowForm } from '@/lib/integration-forms/google-sheet/form-delete-row'
+import { findRowForm } from '@/lib/integration-forms/google-sheet/form-find-row'
 
 export default function SheetConfigForm() {
   const form = useForm<ActionFormType>({
     resolver: actionResolver,
     defaultValues: {
-      action: ActionType.InsertRow
-    }
+      action: ActionType.InsertRow,
+    },
   })
 
   const [currentFormConfig, setCurrentFormConfig] = useState<CreateFormParams>(insertRowForm)
@@ -84,10 +84,8 @@ export default function SheetConfigForm() {
             </FormItem>
           )}
         />
-      </Form >
-      {
-        <CreateForm {...currentFormConfig} />
-      }
+      </Form>
+      <CreateForm {...currentFormConfig} />
     </div>
   )
 }

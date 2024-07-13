@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { LoaderCircle, Plus, X } from 'lucide-react'
+import { FormItemConfig } from '../type'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { FormItemConfig } from '../type'
 
 export function ValueListForm({
   field,
@@ -26,7 +26,8 @@ export function ValueListForm({
         setDisabled(!!res.disabled)
         setEmptyText(res.placeholder || '')
         setCouldAdd(!!res.couldAdd)
-      } catch (e) {
+      }
+      catch (e) {
         console.error(e)
       }
       setLoading(false)
@@ -41,11 +42,12 @@ export function ValueListForm({
   }, [])
 
   useEffect(() => {
-    if (typeof options !== 'function') return;
+    if (typeof options !== 'function')
+      return
 
     const subscription = form.watch((value, { name, type }) => {
       if (type === 'change' && refreshers?.includes(name as string)) {
-        const values = refreshers.map((name) => value[name])
+        const values = refreshers.map(name => value[name])
         refreshOptions(values)
       }
     })
@@ -70,17 +72,18 @@ export function ValueListForm({
     setItems(items.filter((_, i) => i !== index))
   }
 
-  if (!items.length && !loading)
+  if (!items.length && !loading) {
     return (
       <div className="flex items-center justify-center w-full h-32 text-gray-500 border rounded-sm">
         {emptyText || 'No items'}
       </div>
     )
+  }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center w-full h-32 text-gray-500 border rounded-sm">
-        <LoaderCircle size={32} className='animate-spin' />
+        <LoaderCircle size={32} className="animate-spin" />
       </div>
     )
   }
@@ -90,9 +93,9 @@ export function ValueListForm({
       {
         items.map((item, index) => {
           return (
-            <div key={index} className='flex items-center gap-2 w-full'>
+            <div key={index} className="flex items-center gap-2 w-full">
               {/* {!!item.label && <Label>{item.label}</Label>} */}
-              <Input disabled={disabled} defaultValue={item.value} placeholder={item.label || 'Item' + (index + 1)} onChange={(e) => handleValueChange(e, index)} />
+              <Input disabled={disabled} defaultValue={item.value} placeholder={item.label || `Item${index + 1}`} onChange={e => handleValueChange(e, index)} />
               {
                 !disabled && couldAdd && (
                   <Button variant="ghost" onClick={() => handleRemoveItem(index)}>
@@ -108,10 +111,12 @@ export function ValueListForm({
         couldAdd && (
           <Button
             variant="outline"
-            className='flex gap-2 items-center w-full mt-2'
+            className="flex gap-2 items-center w-full mt-2"
             onClick={handleAddItem}
-            type='button'
-          ><Plus size={18} />Add item
+            type="button"
+          >
+            <Plus size={18} />
+            Add item
           </Button>
         )
       }

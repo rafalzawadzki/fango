@@ -1,5 +1,5 @@
-import type { UseFormReturn } from "react-hook-form";
-import { FormItemType } from "./enums";
+import type { UseFormReturn } from 'react-hook-form'
+import { FormItemType } from './enums'
 
 export interface ConnectionType {
   id: string
@@ -21,9 +21,9 @@ export interface OptionsConfig {
 export interface FormItemControlParams {
   form: UseFormReturn<any>
   field: {
-    name: string;
-    value: any;
-    onChange: (value: any) => void;
+    name: string
+    value: any
+    onChange: (value: any) => void
   }
   authConfig?: Record<string, any>
   providerConfigKey: string
@@ -32,9 +32,9 @@ export interface FormItemControlParams {
 export interface OptionsParams {
   form: UseFormReturn<any>
   field: {
-    name: string;
-    value: any;
-    onChange: (value: any) => void;
+    name: string
+    value: any
+    onChange: (value: any) => void
   }
   searchValue?: string
 }
@@ -52,7 +52,6 @@ export interface FormItemConfigParams {
   options?: ((deps: any[], options: OptionsParams) => Promise<OptionsConfig>) | OptionsConfig
 }
 
-
 export type FormItemConfig = FormItemConfigParams & FormItemControlParams
 
 export interface FormItemField extends FormItemConfigParams {
@@ -61,9 +60,9 @@ export interface FormItemField extends FormItemConfigParams {
 }
 
 export interface CreateFormParams {
-  name: string;
-  fields: FormItemField[];
-  providerConfigKey: string;
-  authConfig?: Record<string, any>;
-  run: (values: Record<string, any>) => Promise<any>;
+  name: string
+  fields: FormItemField[]
+  providerConfigKey: string
+  authConfig?: Record<string, any>
+  run: (values: Record<string, any>) => Promise<any>
 }

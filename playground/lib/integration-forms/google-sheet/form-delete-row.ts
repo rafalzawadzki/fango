@@ -1,7 +1,7 @@
-import { deleteSheetRowAction } from "@/action/google-sheets";
-import { commonField } from "./form-common";
-import { CreateFormParams } from "@/lib/forms/type";
-import { PROVIDER_CONFIG_KEY } from "@/lib/nango/google-sheets/constants";
+import { commonField } from './form-common'
+import { deleteSheetRowAction } from '@/action/google-sheets'
+import { CreateFormParams } from '@/lib/forms/type'
+import { PROVIDER_CONFIG_KEY } from '@/lib/nango/google-sheets/constants'
 
 export const deleteRowForm: CreateFormParams = {
   name: 'Delete Row',
@@ -12,7 +12,7 @@ export const deleteRowForm: CreateFormParams = {
     commonField.spreadsheetId,
     commonField.includeTeamDrives,
     commonField.sheetId,
-    commonField.rowId
+    commonField.rowId,
   ],
   run: async (values: any) => {
     const { spreadsheetId, connectionId, sheetId, rowId } = values
@@ -20,8 +20,8 @@ export const deleteRowForm: CreateFormParams = {
       spreadsheetId,
       connectionId,
       sheetId: Number(sheetId),
-      rowId
+      rowId,
     })
     return res
-  }
+  },
 }
