@@ -2,10 +2,11 @@ import { authConfig, getCommonField } from './form-common'
 import type { CreateFormParams } from '@/types/form'
 import { FormItemFactory } from '@/forms'
 import { PROVIDER_CONFIG_KEY } from '@/servers/slack/constants'
-import type { SlackAction } from '@/types/action'
+import type { LocoClient } from '@/client'
 
-export function getSendMessageForm(actions: SlackAction): CreateFormParams {
-  const commonField = getCommonField(actions)
+export function getSendMessageForm(locoClient: LocoClient): CreateFormParams {
+  const actions = locoClient.actions.get('slack') as any
+  const commonField = getCommonField(locoClient)
   const { sendMessageToChannelAction } = actions
   return {
     name: 'Delete Row',
@@ -17,6 +18,7 @@ export function getSendMessageForm(actions: SlackAction): CreateFormParams {
       commonField.slackInfo,
       commonField.channel,
       FormItemFactory.Input({
+        locoClient,
         fieldName: 'text',
         label: 'Message',
         required: true,
@@ -26,6 +28,7 @@ export function getSendMessageForm(actions: SlackAction): CreateFormParams {
       commonField.username,
       commonField.profilePicture,
       FormItemFactory.Input({
+        locoClient,
         fieldName: 'threadTs',
         label: 'Thread ts',
         tip: 'Provide the ts (timestamp) value of the **parent** message to make this message a reply. Do not use the ts value of the reply itself; use its parent instead. For example `1710304378.475129`.Alternatively, you can easily obtain the message link by clicking on the three dots next to the parent message and selecting the `Copy link` option.',

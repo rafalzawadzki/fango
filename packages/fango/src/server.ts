@@ -1,11 +1,9 @@
 import { Nango } from '@nangohq/node'
-import type { ConnectionDatabaseMethods } from './types/connection'
 import { SlackServer } from '@/servers/slack'
 import { GoogleSheetServer } from '@/servers/google-sheets'
 
 export class LocoServer {
   nango: Nango
-  connection_db: ConnectionDatabaseMethods = {}
 
   googleSheetServer: GoogleSheetServer
   slackServer: SlackServer
@@ -20,9 +18,5 @@ export class LocoServer {
 
     this.googleSheetServer = new GoogleSheetServer(this.nango)
     this.slackServer = new SlackServer(this.nango)
-  }
-
-  setConnectionDatabase(methods: ConnectionDatabaseMethods) {
-    this.connection_db = methods
   }
 }

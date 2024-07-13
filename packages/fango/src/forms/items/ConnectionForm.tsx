@@ -29,8 +29,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { addConnection, getConnections, getUserId, updateConnection } from '@/database'
-import { nango } from '@/nango/common/nango'
 import { generateConnectionId } from '@/utils'
 
 interface ConnectionType {
@@ -44,7 +42,7 @@ const connectionSchema = z.object({
 const connectionFormResolver = zodResolver(connectionSchema)
 type ConnectionFormType = z.infer<typeof connectionSchema>
 
-export function ConnectionForm({ field, form, providerConfigKey, authConfig }: FormItemConfig) {
+export function ConnectionForm({ locoClient, field, form, providerConfigKey, authConfig }: FormItemConfig) {
   const addForm = useForm<ConnectionFormType>({
     resolver: connectionFormResolver,
   })
@@ -55,6 +53,12 @@ export function ConnectionForm({ field, form, providerConfigKey, authConfig }: F
   const [auth, setAuth] = useState(false)
   const [editingConnectionId, setEditingConnectionId] = useState('')
   const addConnectionId = useRef<string>('')
+
+  const { createConnection, getConnections, updateConnection } = locoClient.connection_db || {}
+
+  if (!createConnection || !getConnections || !updateConnection) {
+    throw new Error('Connection DB not available')
+  }
 
   const handleRefreshConnections = useCallback(async () => {
     const res = await getConnections(providerConfigKey!)
@@ -90,15 +94,14 @@ export function ConnectionForm({ field, form, providerConfigKey, authConfig }: F
     setLoading(true)
     try {
       if (editingConnectionId) {
-        await nango.auth(providerConfigKey, editingConnectionId, {
+        await locoClient.nango.auth(providerConfigKey, editingConnectionId, {
           detectClosedAuthWindow: true,
         })
       }
       else {
-        const userId = await getUserId()
-        const id = generateConnectionId(userId)
+        const id = generateConnectionId()
         addConnectionId.current = id
-        await nango.auth(providerConfigKey, id, {
+        await locoClient.nango.auth(providerConfigKey, id, {
           detectClosedAuthWindow: true,
           ...authConfig,
         })
@@ -121,7 +124,11 @@ export function ConnectionForm({ field, form, providerConfigKey, authConfig }: F
       return
     setLoading(true)
     if (addConnectionId.current) {
-      await addConnection(addConnectionId.current, addForm.getValues('name'), providerConfigKey)
+      await createConnection({
+        connectionId: addConnectionId.current,
+        connectionName: addForm.getValues('name'),
+        type: providerConfigKey as any,
+      })
     }
     else {
       await updateConnection(editingConnectionId, addForm.getValues('name'))

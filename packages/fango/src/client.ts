@@ -1,10 +1,10 @@
 import Nango from '@nangohq/frontend'
-import type { ConnectionType } from './types/connection'
+import type { ConnectionDatabaseMethods, ConnectionType } from './types/connection'
 import type { Action, ActionMap } from './types/action'
 
 export class LocoClient {
   nango: Nango
-
+  connection_db: ConnectionDatabaseMethods = {}
   actions: Map<ConnectionType, Action> = new Map()
 
   private nango_host?: string
@@ -18,5 +18,9 @@ export class LocoClient {
 
   setServerActions<T extends ConnectionType>(key: T, actions: ActionMap[T]) {
     this.actions.set(key, actions)
+  }
+
+  setConnectionDatabase(methods: ConnectionDatabaseMethods) {
+    this.connection_db = methods
   }
 }

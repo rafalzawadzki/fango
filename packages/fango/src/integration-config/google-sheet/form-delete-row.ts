@@ -1,10 +1,11 @@
 import { getCommonField } from './form-common'
 import { PROVIDER_CONFIG_KEY } from '@/servers/google-sheets/constants'
 import type { CreateFormParams } from '@/types/form'
-import type { GoogleSheetAction } from '@/types/action'
+import type { LocoClient } from '@/client'
 
-export const getDeleteRowForm: (actions: GoogleSheetAction) => CreateFormParams = (actions) => {
-  const commonField = getCommonField(actions)
+export function getDeleteRowForm(locoClient: LocoClient): CreateFormParams {
+  const actions = locoClient.actions.get('google-sheet') as any
+  const commonField = getCommonField(locoClient)
   return {
     name: 'Delete Row',
     providerConfigKey: PROVIDER_CONFIG_KEY,

@@ -6,6 +6,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function generateConnectionId(prefix: string) {
-  return `${prefix}-${nanoid()}`
+export function generateConnectionId() {
+  return nanoid()
 }

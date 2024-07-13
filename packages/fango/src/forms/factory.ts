@@ -1,6 +1,6 @@
+import type { FormItemConfigParams, FormItemControlParams } from '../types/form'
 import { FormItemType } from './enums'
 import { ConnectionForm, InputForm, Markdown, SelectForm, SwitchForm, ValueListForm } from './items'
-import type { FormItemConfigParams, FormItemControlParams } from '../types/form'
 
 function getFormControl(type: FormItemType) {
   switch (type) {

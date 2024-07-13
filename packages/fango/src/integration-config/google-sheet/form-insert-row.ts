@@ -2,10 +2,11 @@ import { getCommonField } from './form-common'
 import { FormItemFactory } from '@/forms'
 import type { CreateFormParams } from '@/types/form'
 import { PROVIDER_CONFIG_KEY } from '@/servers/google-sheets/constants'
-import type { GoogleSheetAction } from '@/types/action'
+import type { LocoClient } from '@/client'
 
-export function getInsertRowForm(actions: GoogleSheetAction): CreateFormParams {
-  const commonField = getCommonField(actions)
+export function getInsertRowForm(locoClient: LocoClient): CreateFormParams {
+  const actions = locoClient.actions.get('google-sheet') as any
+  const commonField = getCommonField(locoClient)
   return {
     name: 'Insert Row',
     providerConfigKey: PROVIDER_CONFIG_KEY,
@@ -16,6 +17,7 @@ export function getInsertRowForm(actions: GoogleSheetAction): CreateFormParams {
       commonField.includeTeamDrives,
       commonField.sheetId,
       FormItemFactory.Switch({
+        locoClient,
         fieldName: 'asString',
         label: 'As String',
         tip: 'Inserted values that are dates and formulas will be entered strings and have no effect',

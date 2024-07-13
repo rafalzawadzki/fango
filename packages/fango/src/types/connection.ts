@@ -10,6 +10,6 @@ export interface Connection {
 export interface ConnectionDatabaseMethods {
   getConnection?: (connectionId: string) => Promise<Connection>
   getConnections?: (providerConfigKey?: string) => Promise<Connection[]>
-  createConnection?: (connection: Connection) => Promise<Connection>
+  createConnection?: (connection: Partial<Connection>) => Promise<Connection>
   updateConnection?: (connectionId: string, connectionName: string) => Promise<Connection>
 }

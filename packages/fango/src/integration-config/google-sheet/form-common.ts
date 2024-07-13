@@ -1,25 +1,31 @@
+import type { LocoClient } from '@/client'
 import { FormItemFactory } from '@/forms'
 import type { GoogleSheetAction } from '@/types/action'
 
-export function getCommonField({
-  findSheetsAction,
-  findSpreadsheetsAction,
-  getSheetValuesAction,
-}: GoogleSheetAction) {
+export function getCommonField(locoClient: LocoClient) {
+  const {
+    findSheetsAction,
+    findSpreadsheetsAction,
+    getSheetValuesAction,
+  } = locoClient.actions.get('google-sheet') as GoogleSheetAction
+
   return {
     auth: FormItemFactory.Switch({
+      locoClient,
       fieldName: 'auth',
       label: 'Auth',
       hidden: true,
       cache: true,
     }),
     connectionId: FormItemFactory.Connection({
+      locoClient,
       fieldName: 'connectionId',
       label: 'Connection',
       required: true,
       cache: true,
     }),
     spreadsheetId: FormItemFactory.Select({
+      locoClient,
       fieldName: 'spreadsheetId',
       label: 'Spreadsheet ID',
       required: true,
@@ -49,12 +55,14 @@ export function getCommonField({
       },
     }),
     includeTeamDrives: FormItemFactory.Switch({
+      locoClient,
       fieldName: 'includeTeamDrives',
       label: 'Include Team Drive Sheets',
       tip: 'Determines if sheets from Team Drives should be included in the results.',
       cache: true,
     }),
     sheetId: FormItemFactory.Select({
+      locoClient,
       fieldName: 'sheetId',
       label: 'Sheet',
       required: true,
@@ -83,6 +91,7 @@ export function getCommonField({
       },
     }),
     values: FormItemFactory.ValueList({
+      locoClient,
       fieldName: 'values',
       label: 'Values',
       refreshers: ['sheetId', 'spreadsheetId', 'firstRowHeaders'],
@@ -131,12 +140,14 @@ export function getCommonField({
       },
     }),
     rowId: FormItemFactory.Input({
+      locoClient,
       fieldName: 'rowId',
       label: 'Row Number',
       tip: 'The row number to remove',
       required: true,
     }),
     firstRowHeaders: FormItemFactory.Switch({
+      locoClient,
       fieldName: 'firstRowHeaders',
       label: 'Does the first row contain headers?',
       tip: 'If the first row is headers',

@@ -1,13 +1,15 @@
 {
   "name": "fango",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "author": "",
   "license": "ISC",
   "keywords": [],
   "main": "index.js",
   "scripts": {
-    "dev": "cd playground && npm run dev",
+    "dev": "cd playground && pnpm run dev",
+    "build": "cd packages/fango && pnpm run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

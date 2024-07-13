@@ -2,10 +2,11 @@ import { getCommonField } from './form-common'
 import { FormItemFactory } from '@/forms'
 import type { CreateFormParams } from '@/types/form'
 import { PROVIDER_CONFIG_KEY } from '@/servers/google-sheets/constants'
-import type { GoogleSheetAction } from '@/types/action'
+import type { LocoClient } from '@/client'
 
-export function getFindRowForm(actions: GoogleSheetAction): CreateFormParams {
-  const commonField = getCommonField(actions)
+export function getFindRowForm(locoClient: LocoClient): CreateFormParams {
+  const actions = locoClient.actions.get('google-sheet') as any
+  const commonField = getCommonField(locoClient)
   const { findSheetNameAction, findSheetRowAction, getSheetValuesAction } = actions
   return {
     name: 'Find Row',
@@ -17,6 +18,7 @@ export function getFindRowForm(actions: GoogleSheetAction): CreateFormParams {
       commonField.includeTeamDrives,
       commonField.sheetId,
       FormItemFactory.Select({
+        locoClient,
         fieldName: 'columnName',
         label: 'The name of the column to search in',
         showSearch: true,
@@ -108,21 +110,25 @@ export function getFindRowForm(actions: GoogleSheetAction): CreateFormParams {
         },
       }),
       FormItemFactory.Input({
+        locoClient,
         fieldName: 'searchValue',
         label: 'Search Value',
         tip: 'The value to search for in the specified column. If left empty, all rows will be returned.',
       }),
       FormItemFactory.Switch({
+        locoClient,
         fieldName: 'matchCase',
         label: 'Exact match',
         tip: 'Whether to choose the rows with exact match or choose the rows that contain the search value',
       }),
       FormItemFactory.Input({
+        locoClient,
         fieldName: 'startingRow',
         label: 'Starting Row',
         tip: 'The row number to start searching from',
       }),
       FormItemFactory.Input({
+        locoClient,
         fieldName: 'numberOfRows',
         label: 'Number of Rows',
         tip: 'The number of rows to return ( the default is 1 if not specified )',

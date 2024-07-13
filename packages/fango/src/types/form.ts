@@ -1,5 +1,6 @@
 import type { UseFormReturn } from 'react-hook-form'
 import type { FormItemType } from '../forms/enums'
+import type { LocoClient } from '..'
 
 export interface ConnectionType {
   id: string
@@ -40,6 +41,7 @@ export interface OptionsParams {
 }
 
 export interface FormItemConfigParams {
+  locoClient: LocoClient
   fieldName: string
   label: string
   required?: boolean

@@ -15,7 +15,6 @@ export default defineConfig({
       name: 'fango',
     },
     rollupOptions: {
-
       external: ['react', 'react-dom'],
       output: {
         globals: {
