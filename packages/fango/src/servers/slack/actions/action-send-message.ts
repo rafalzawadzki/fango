@@ -1,7 +1,7 @@
+import type { Nango } from '@nangohq/node'
 import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
 import { processMessageTimestamp } from '../utils'
 import { findConnectionCredentials } from './common'
-import { nango } from '@/nango/common/nango-node'
 
 export interface SendMessageToChannelParams {
   connectionId: string
@@ -12,7 +12,7 @@ export interface SendMessageToChannelParams {
   threadTs?: string
 }
 
-export async function sendMessageToChannel({
+export async function sendMessageToChannel(nango: Nango, {
   connectionId,
   text,
   conversationId,
@@ -20,7 +20,7 @@ export async function sendMessageToChannel({
   profilePicture,
   threadTs,
 }: SendMessageToChannelParams) {
-  const { access_token } = await findConnectionCredentials(connectionId)
+  const { access_token } = await findConnectionCredentials(nango, connectionId)
 
   const data: any = {
     text,

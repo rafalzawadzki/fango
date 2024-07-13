@@ -1,7 +1,7 @@
+import type { Nango } from '@nangohq/node'
 import { Dimension, ValueInputOption } from '../enums'
 import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
 import { findConnectionCredentials, findSheetName } from './common'
-import { nango } from '@/nango/common/nango-node'
 
 export interface InsertSheetRowParams {
   connectionId: string
@@ -11,10 +11,10 @@ export interface InsertSheetRowParams {
   asString?: boolean
 }
 
-export async function insertSheetRow({ spreadsheetId, sheetId, connectionId, values, asString }: InsertSheetRowParams) {
-  const credentials = await findConnectionCredentials(connectionId)
+export async function insertSheetRow(nango: Nango, { spreadsheetId, sheetId, connectionId, values, asString }: InsertSheetRowParams) {
+  const credentials = await findConnectionCredentials(nango, connectionId)
   const valueInputOption = asString ? ValueInputOption.RAW : ValueInputOption.USER_ENTERED
-  const range = await findSheetName({
+  const range = await findSheetName(nango, {
     sheetId,
     spreadsheetId,
     connectionId,

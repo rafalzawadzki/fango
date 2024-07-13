@@ -1,8 +1,8 @@
+import type { Nango } from '@nangohq/node'
 import { Dimension, ValueInputOption } from '../enums'
 import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
+import { stringifyArray } from '../utils'
 import { findConnectionCredentials, findSheetName } from './common'
-import { nango } from '@/nango/common/nango-node'
-import { stringifyArray } from '@/nango/google-sheets/utils'
 
 export interface UpdateSheetRowParams {
   connectionId: string
@@ -13,11 +13,11 @@ export interface UpdateSheetRowParams {
   firstRowHeaders?: boolean
 }
 
-export async function updateSheetRow({ spreadsheetId, connectionId, sheetId, values, rowId }: UpdateSheetRowParams) {
-  const credentials = await findConnectionCredentials(connectionId)
+export async function updateSheetRow(nango: Nango, { spreadsheetId, connectionId, sheetId, values, rowId }: UpdateSheetRowParams) {
+  const credentials = await findConnectionCredentials(nango, connectionId)
   const accessToken = credentials.access_token
 
-  const sheetName = await findSheetName({
+  const sheetName = await findSheetName(nango, {
     sheetId,
     spreadsheetId,
     connectionId,

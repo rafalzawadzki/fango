@@ -1,7 +1,7 @@
+import type { Nango } from '@nangohq/node'
 import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
+import { columnToLabel, labelToColumn } from '../utils'
 import { findConnectionCredentials, findSheetName } from './common'
-import { nango } from '@/nango/common/nango-node'
-import { columnToLabel, labelToColumn } from '@/nango/google-sheets/utils'
 
 export interface FindSheetRowParams {
   connectionId: string
@@ -14,7 +14,7 @@ export interface FindSheetRowParams {
   searchValue?: string
 }
 
-export async function findSheetRow({
+export async function findSheetRow(nango: Nango, {
   sheetId,
   spreadsheetId,
   connectionId,
@@ -24,10 +24,10 @@ export async function findSheetRow({
   columnName: cn,
   searchValue: sv,
 }: FindSheetRowParams) {
-  const credentials = await findConnectionCredentials(connectionId)
+  const credentials = await findConnectionCredentials(nango, connectionId)
   const accessToken = credentials.access_token
 
-  const sheetName = await findSheetName({
+  const sheetName = await findSheetName(nango, {
     sheetId,
     spreadsheetId,
     connectionId,

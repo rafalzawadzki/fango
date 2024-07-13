@@ -1,14 +1,13 @@
-import type { OAuth2Credentials } from '@nangohq/node'
+import type { Nango, OAuth2Credentials } from '@nangohq/node'
 import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
-import { nango } from '@/nango/common/nango-node'
 
-export async function findConnectionCredentials(connectionId: string) {
+export async function findConnectionCredentials(nango: Nango, connectionId: string) {
   const connectionConfig = await nango.getConnection(PROVIDER_CONFIG_KEY, connectionId)
   return connectionConfig.credentials as OAuth2Credentials
 }
 
-export async function findChannels(connectionId: string) {
-  const { access_token } = await findConnectionCredentials(connectionId)
+export async function findChannels(nango: Nango, connectionId: string) {
+  const { access_token } = await findConnectionCredentials(nango, connectionId)
   const channels: { label: string, value: string }[] = []
   let cursor
   do {
