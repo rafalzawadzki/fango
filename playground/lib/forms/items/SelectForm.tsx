@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { debounce } from 'lodash'
 import { LoaderCircle, RefreshCw } from 'lucide-react'
-import { FormItemConfig, SelectOption } from '../type'
+import type { FormItemConfig, SelectOption } from '../type'
 import {
   Select,
   SelectContent,
@@ -50,7 +50,6 @@ export function SelectForm({ field, form, refreshers, options, placeholder, show
     if (!isOptionsObj) {
       refreshOptions([])
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

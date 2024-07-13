@@ -1,4 +1,4 @@
-import { OAuth2Credentials } from '@nangohq/node'
+import type { OAuth2Credentials } from '@nangohq/node'
 import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
 import { nango } from '@/lib/nango/common/nango-node'
 import { columnToLabel } from '@/lib/nango/google-sheets/utils'

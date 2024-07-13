@@ -1,4 +1,4 @@
-import { FormItemConfig } from '../type'
+import type { FormItemConfig } from '../type'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 

@@ -17,6 +17,9 @@ importers:
       eslint:
         specifier: 9.4.0
         version: 9.4.0
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.3
 
   packages/fango:
     dependencies:

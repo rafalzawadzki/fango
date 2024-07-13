@@ -27,7 +27,7 @@ export const commonField = {
     tip: 'Channel, private group, or IM channel to send message to.',
     placeholder: 'Select a channel',
     refreshers: ['connectionId'],
-    options: async (deps, { form, field }) => {
+    options: async (deps, { field }) => {
       if (field.value) {
         field.onChange('')
       }

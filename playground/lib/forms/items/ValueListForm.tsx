@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { LoaderCircle, Plus, X } from 'lucide-react'
-import { FormItemConfig } from '../type'
+import type { FormItemConfig } from '../type'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
@@ -38,7 +38,6 @@ export function ValueListForm({
     if (!isOptionsObj) {
       refreshOptions([])
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

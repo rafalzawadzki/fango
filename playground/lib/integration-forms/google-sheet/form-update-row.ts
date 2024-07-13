@@ -1,6 +1,6 @@
 import { commonField } from './form-common'
 import { updateSheetRowAction } from '@/action/google-sheets'
-import { CreateFormParams } from '@/lib/forms/type'
+import type { CreateFormParams } from '@/lib/forms/type'
 import { PROVIDER_CONFIG_KEY } from '@/lib/nango/google-sheets/constants'
 
 export const updateRowForm: CreateFormParams = {

@@ -1,6 +1,6 @@
 import { authConfig, commonField } from './form-common'
 import { sendMessageToChannelAction } from '@/action/slack'
-import { CreateFormParams } from '@/lib/forms/type'
+import type { CreateFormParams } from '@/lib/forms/type'
 import { FormItemFactory } from '@/lib/forms'
 import { PROVIDER_CONFIG_KEY } from '@/lib/nango/slack/constants'
 

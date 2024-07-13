@@ -34,8 +34,8 @@ export async function findSheetRow({
     accessToken,
   })
 
-  const starting = (startingRow == '' || startingRow === undefined) ? 1 : Number(startingRow)
-  const numberOfRowsToReturn = (numberOfRows == '' || numberOfRows === undefined) ? 1 : Number(numberOfRows)
+  const starting = (startingRow === '' || startingRow === undefined) ? 1 : Number(startingRow)
+  const numberOfRowsToReturn = (numberOfRows === '' || numberOfRows === undefined) ? 1 : Number(numberOfRows)
 
   const newSheetName = `${sheetName}!A${starting}:ZZZ`
 

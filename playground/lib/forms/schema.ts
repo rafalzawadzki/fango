@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormItemType } from './enums'
-import { FormItemField } from './type'
+import type { FormItemField } from './type'
 
 export function generateSchema(fields: FormItemField[]) {
   const schemaObj: { [key: string]: z.ZodType<any, any, any> } = {}

@@ -17,9 +17,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { ActionFormType, ActionType, actionResolver } from '@/lib/schema'
+import type { ActionFormType } from '@/lib/schema'
+import { ActionType, actionResolver } from '@/lib/schema'
 import { CreateForm } from '@/lib/forms'
-import { CreateFormParams } from '@/lib/forms/type'
+import type { CreateFormParams } from '@/lib/forms/type'
 import { insertRowForm } from '@/lib/integration-forms/google-sheet/form-insert-row'
 import { updateRowForm } from '@/lib/integration-forms/google-sheet/form-update-row'
 import { deleteRowForm } from '@/lib/integration-forms/google-sheet/form-delete-row'

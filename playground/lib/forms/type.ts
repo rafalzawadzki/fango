@@ -1,5 +1,5 @@
 import type { UseFormReturn } from 'react-hook-form'
-import { FormItemType } from './enums'
+import type { FormItemType } from './enums'
 
 export interface ConnectionType {
   id: string

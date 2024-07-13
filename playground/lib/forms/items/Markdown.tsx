@@ -1,5 +1,5 @@
 import ReactMarkdown from 'react-markdown'
-import { FormItemConfig } from '../type'
+import type { FormItemConfig } from '../type'
 
 export function Markdown({ tip }: FormItemConfig) {
   return (

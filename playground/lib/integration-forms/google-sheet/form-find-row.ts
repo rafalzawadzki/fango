@@ -1,7 +1,7 @@
 import { commonField } from './form-common'
 import { findSheetNameAction, findSheetRowAction, getSheetValuesAction } from '@/action/google-sheets'
 import { FormItemFactory } from '@/lib/forms'
-import { CreateFormParams } from '@/lib/forms/type'
+import type { CreateFormParams } from '@/lib/forms/type'
 import { PROVIDER_CONFIG_KEY } from '@/lib/nango/google-sheets/constants'
 
 export const findRowForm: CreateFormParams = {

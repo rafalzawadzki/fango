@@ -1,4 +1,4 @@
-import { FormItemConfig } from '../type'
+import type { FormItemConfig } from '../type'
 import { Input } from '@/components/ui/input'
 
 export function InputForm({ field, tip, placeholder }: FormItemConfig) {

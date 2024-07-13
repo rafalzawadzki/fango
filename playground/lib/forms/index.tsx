@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { LoaderCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import type { z } from 'zod'
 import { FormItemType } from './enums'
 import { ConnectionForm, InputForm, Markdown, SelectForm, SwitchForm, ValueListForm } from './items'
-import { CreateFormParams, FormItemConfigParams, FormItemControlParams } from './type'
+import type { CreateFormParams, FormItemConfigParams, FormItemControlParams } from './type'
 import { generateSchema } from './schema'
 import { Button } from '@/components/ui/button'
 import {
