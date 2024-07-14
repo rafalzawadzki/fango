@@ -1,8 +1,8 @@
+import type { LocoClient } from '@fango/client'
 import { authConfig, getCommonField } from './form-common'
 import { PROVIDER_CONFIG_KEY } from './constants'
 import type { CreateFormParams } from '@/types/form'
 import { FormItemFactory } from '@/forms'
-import type { LocoClient } from '@fango/client'
 
 export function getSendMessageForm(locoClient: LocoClient): CreateFormParams {
   const actions = locoClient.actions.get('slack') as any
