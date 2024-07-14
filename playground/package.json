@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fango/client": "workspace:*",
+    "@fango/form": "workspace:*",
     "@fango/server": "workspace:*",
     "@hookform/resolvers": "^3.6.0",
     "@nangohq/frontend": "^0.40.6",

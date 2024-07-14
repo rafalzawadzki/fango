@@ -1,6 +1,7 @@
 'use client'
 
-import { LocoForm } from '@fango/client'
+import { LocoForm } from '@fango/form'
+import '@fango/form/dist/style.css'
 import { locoClient } from '@/lib/fango/client'
 import { deleteSheetRowAction, findSheetNameAction, findSheetRowAction, findSheetsAction, findSpreadsheetsAction, getSheetValuesAction, insertSheetRowAction, updateSheetRowAction } from '@/action/google-sheets'
 

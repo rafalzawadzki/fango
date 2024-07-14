@@ -1,7 +1,7 @@
 import { getCommonField } from './form-common'
 import type { CreateFormParams } from '@/types/form'
 import { PROVIDER_CONFIG_KEY } from './constants'
-import type { LocoClient } from '@/client'
+import type { LocoClient } from '@fango/client'
 
 export function getUpdateRowForm(locoClient: LocoClient): CreateFormParams {
   const actions = locoClient.actions.get('google-sheet') as any

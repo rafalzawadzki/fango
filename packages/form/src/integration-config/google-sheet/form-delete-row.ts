@@ -1,7 +1,7 @@
+import type { LocoClient } from '@fango/client'
 import { getCommonField } from './form-common'
 import { PROVIDER_CONFIG_KEY } from './constants'
 import type { CreateFormParams } from '@/types/form'
-import type { LocoClient } from '@/client'
 
 export function getDeleteRowForm(locoClient: LocoClient): CreateFormParams {
   const actions = locoClient.actions.get('google-sheet') as any

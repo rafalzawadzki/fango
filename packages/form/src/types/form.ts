@@ -1,6 +1,6 @@
 import type { UseFormReturn } from 'react-hook-form'
+import type { LocoClient } from '@fango/client'
 import type { FormItemType } from '../forms/enums'
-import type { LocoClient } from '..'
 
 export interface ConnectionType {
   id: string
