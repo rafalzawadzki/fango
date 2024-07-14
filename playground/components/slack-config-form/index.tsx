@@ -1,15 +1,17 @@
 'use client'
 
-import { LocoForm } from '@fango/form'
-import '@fango/form/dist/style.css'
+import { useEffect } from 'react'
+import { LocoForm } from '@/lib/fango/form'
 import { locoClient } from '@/lib/fango/client'
 import { findChannelsAction, sendMessageToChannelAction } from '@/action/slack'
 
 export default function SheetConfigForm() {
-  locoClient.setServerActions('slack', {
-    findChannelsAction,
-    sendMessageToChannelAction,
-  })
+  useEffect(() => {
+    locoClient.setServerActions('slack', {
+      findChannelsAction,
+      sendMessageToChannelAction,
+    })
+  }, [])
 
   return (
     <LocoForm

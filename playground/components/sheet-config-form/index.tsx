@@ -1,21 +1,23 @@
 'use client'
 
-import { LocoForm } from '@fango/form'
-import '@fango/form/dist/style.css'
+import { useEffect } from 'react'
+import { LocoForm } from '@/lib/fango/form'
 import { locoClient } from '@/lib/fango/client'
 import { deleteSheetRowAction, findSheetNameAction, findSheetRowAction, findSheetsAction, findSpreadsheetsAction, getSheetValuesAction, insertSheetRowAction, updateSheetRowAction } from '@/action/google-sheets'
 
 export default function SheetConfigForm() {
-  locoClient.setServerActions('google-sheet', {
-    insertSheetRowAction,
-    findSheetRowAction,
-    updateSheetRowAction,
-    deleteSheetRowAction,
-    findSheetsAction,
-    findSpreadsheetsAction,
-    findSheetNameAction,
-    getSheetValuesAction,
-  })
+  useEffect(() => {
+    locoClient.setServerActions('google-sheet', {
+      insertSheetRowAction,
+      findSheetRowAction,
+      updateSheetRowAction,
+      deleteSheetRowAction,
+      findSheetsAction,
+      findSpreadsheetsAction,
+      findSheetNameAction,
+      getSheetValuesAction,
+    })
+  }, [])
 
   return (
     <LocoForm
