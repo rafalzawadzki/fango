@@ -1,7 +1,7 @@
 import { getCommonField } from './form-common'
 import { FormItemFactory } from '@/forms'
 import type { CreateFormParams } from '@/types/form'
-import { PROVIDER_CONFIG_KEY } from '@/servers/google-sheets/constants'
+import { PROVIDER_CONFIG_KEY } from './constants'
 import type { LocoClient } from '@/client'
 
 export function getInsertRowForm(locoClient: LocoClient): CreateFormParams {

@@ -1,4 +1,4 @@
-import type { LocoClient } from '@/client'
+import type { LocoClient } from '@fango/client'
 import { FormItemFactory } from '@/forms'
 import type { GoogleSheetAction } from '@/types/action'
 

@@ -24,17 +24,20 @@ importers:
         specifier: ^5.5.3
         version: 5.5.3
 
-  packages/fango:
+  packages/client:
+    dependencies:
+      '@nangohq/frontend':
+        specifier: ^0.40.6
+        version: 0.40.10
+      tsup:
+        specifier: ^8.1.0
+        version: 8.1.0(@microsoft/api-extractor@7.43.0(@types/node@20.14.10))(postcss@8.4.39)(typescript@5.5.3)
+
+  packages/form:
     dependencies:
       '@hookform/resolvers':
         specifier: ^3.6.0
         version: 3.9.0(react-hook-form@7.52.1(react@18.3.1))
-      '@nangohq/frontend':
-        specifier: ^0.40.6
-        version: 0.40.10
-      '@nangohq/node':
-        specifier: ^0.40.6
-        version: 0.40.10
       '@radix-ui/react-checkbox':
         specifier: ^1.1.0
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -93,6 +96,9 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
+      '@fango/client':
+        specifier: workspace:*
+        version: link:../client
       '@tailwindcss/typography':
         specifier: ^0.5.13
         version: 0.5.13(tailwindcss@3.4.4)
@@ -150,8 +156,11 @@ importers:
 
   playground:
     dependencies:
+      '@fango/client':
+        specifier: workspace:*
+        version: link:../packages/client
       '@fango/server':
-        specifier: file:../packages/server
+        specifier: workspace:*
         version: link:../packages/server
       '@hookform/resolvers':
         specifier: ^3.6.0
@@ -189,9 +198,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      fango:
-        specifier: file:../packages/fango
-        version: link:../packages/fango
       lodash:
         specifier: ^4.17.21
         version: 4.17.21

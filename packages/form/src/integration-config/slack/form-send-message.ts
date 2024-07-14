@@ -1,7 +1,7 @@
 import { authConfig, getCommonField } from './form-common'
+import { PROVIDER_CONFIG_KEY } from './constants'
 import type { CreateFormParams } from '@/types/form'
 import { FormItemFactory } from '@/forms'
-import { PROVIDER_CONFIG_KEY } from '@/servers/slack/constants'
 import type { LocoClient } from '@/client'
 
 export function getSendMessageForm(locoClient: LocoClient): CreateFormParams {

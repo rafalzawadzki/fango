@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { CreateFormParams } from './types/form'
-import type { LocoClient } from '@/client'
 import type { ActionFormType, FormType } from '@/integration-config'
 import { actionResolver, getFormConfigFuncByAction, normalizeFormList } from '@/integration-config'
 import {
@@ -24,7 +23,7 @@ import type { ConnectionType } from '@/types/connection'
 
 export interface LocoFormParams {
   type: ConnectionType
-  locoClient: LocoClient
+  locoClient: any
   defaultForm?: FormType
   forms?: Array<{
     value: FormType

@@ -9,7 +9,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "dev": "cd playground && pnpm run dev",
-    "build": "cd packages/fango && pnpm run build",
+    "build": "cd packages/client && pnpm run build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

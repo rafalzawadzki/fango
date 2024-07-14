@@ -1,13 +1,13 @@
 import { getCommonField } from './form-common'
+import { PROVIDER_CONFIG_KEY } from './constants'
 import type { CreateFormParams } from '@/types/form'
-import { PROVIDER_CONFIG_KEY } from '@/servers/google-sheets/constants'
 import type { LocoClient } from '@/client'
 
-export function getUpdateRowForm(locoClient: LocoClient): CreateFormParams {
+export function getDeleteRowForm(locoClient: LocoClient): CreateFormParams {
   const actions = locoClient.actions.get('google-sheet') as any
   const commonField = getCommonField(locoClient)
   return {
-    name: 'Update Row',
+    name: 'Delete Row',
     providerConfigKey: PROVIDER_CONFIG_KEY,
     fields: [
       commonField.auth,
@@ -16,18 +16,14 @@ export function getUpdateRowForm(locoClient: LocoClient): CreateFormParams {
       commonField.includeTeamDrives,
       commonField.sheetId,
       commonField.rowId,
-      commonField.firstRowHeaders,
-      commonField.values,
     ],
-    run: async (data: any) => {
-      const { spreadsheetId, connectionId, sheetId, values, rowId, firstRowHeaders } = data
-      const res = await actions.updateSheetRowAction({
+    run: async (values: any) => {
+      const { spreadsheetId, connectionId, sheetId, rowId } = values
+      const res = await actions.deleteSheetRowAction({
         spreadsheetId,
         connectionId,
         sheetId: Number(sheetId),
-        values: values || [],
         rowId,
-        firstRowHeaders,
       })
       return res
     },
