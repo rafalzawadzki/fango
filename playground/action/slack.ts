@@ -1,7 +1,7 @@
 'use server'
 
-import { type SendMessageToChannelParams, findChannels, sendMessageToChannel } from '@/lib/nango/slack/actions'
+import { locoServer } from '@/lib/fango/server'
 
-export const sendMessageToChannelAction = async (data: SendMessageToChannelParams) => sendMessageToChannel(data)
+export const sendMessageToChannelAction = async (data: any) => locoServer.slackServer.sendMessageToChannel(data)
 
-export const findChannelsAction = async (connectionId: string) => findChannels(connectionId)
+export const findChannelsAction = async (connectionId: string) => locoServer.slackServer.findChannels(connectionId)

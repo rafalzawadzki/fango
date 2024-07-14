@@ -1,12 +1,20 @@
 'use client'
 
-import { CreateForm } from '@/lib/forms'
-import { sendMessageForm } from '@/lib/integration-forms/slack/form-sent-message'
+import { LocoForm } from '@fango/form'
+import '@fango/form/dist/style.css'
+import { locoClient } from '@/lib/fango/client'
+import { findChannelsAction, sendMessageToChannelAction } from '@/action/slack'
 
 export default function SheetConfigForm() {
+  locoClient.setServerActions('slack', {
+    findChannelsAction,
+    sendMessageToChannelAction,
+  })
+
   return (
-    <div className="w-full space-y-8">
-      <CreateForm {...sendMessageForm} />
-    </div>
+    <LocoForm
+      type="slack"
+      locoClient={locoClient}
+    />
   )
 }
