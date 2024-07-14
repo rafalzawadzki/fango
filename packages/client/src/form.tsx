@@ -42,8 +42,11 @@ export function LocoForm({
 }: LocoFormParams) {
   const formList = normalizeFormList(type, forms)!
   const defaultAction = defaultForm || formList[0].value
-  const actions = locoClient.actions.get(type)!
-  const defaultFormConfig = getFormConfigFuncByAction(type, defaultAction)!(actions as any)
+  const formConfigFunc = getFormConfigFuncByAction(type, defaultAction)
+  if (!formConfigFunc) {
+    throw new Error(`Form config function not found for action: ${defaultAction}`)
+  }
+  const defaultFormConfig = formConfigFunc(locoClient)
 
   const form = useForm<ActionFormType>({
     resolver: actionResolver,
@@ -57,7 +60,7 @@ export function LocoForm({
   const handleActionChange = (action: FormType) => {
     const formConfigFunc = getFormConfigFuncByAction(type, action)
     if (formConfigFunc) {
-      setCurrentFormConfig(formConfigFunc(actions as any))
+      setCurrentFormConfig(formConfigFunc(locoClient))
     }
   }
 

@@ -1,5 +1,5 @@
 {
-  "name": "fango",
+  "name": "@fango/client",
   "type": "module",
   "version": "0.0.0",
   "main": "./dist/index.js",

@@ -1,3 +1,3 @@
-// import { LocoServer } from 'fango'
+import { LocoServer } from '@fango/server'
 
-// export const locoClient = new LocoServer(process.env.NANGO_HOST!, process.env.NANGO_SECRET_KEY!)
+export const locoServer = new LocoServer(process.env.NANGO_HOST!, process.env.NANGO_SECRET_KEY!)

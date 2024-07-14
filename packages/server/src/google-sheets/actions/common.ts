@@ -37,6 +37,7 @@ export async function findSpreadsheets(nango: Nango, {
   searchValue,
   includeTeamDrives,
 }: FindSpreadsheetsParams) {
+  console.log('findSpreadsheets', connectionId, searchValue, includeTeamDrives)
   if (!connectionId) {
     throw new Error('Connection ID is required')
   }

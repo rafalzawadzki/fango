@@ -10,8 +10,9 @@ export default defineConfig({
     },
   },
   build: {
+    target: 'esnext',
     lib: {
-      entry: 'src/index.ts',
+      entry: ['src/client.ts', 'src/server.ts', 'src/form.tsx'],
       name: 'fango',
     },
     rollupOptions: {

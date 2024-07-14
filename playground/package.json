@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fango/server": "file:../packages/server",
     "@hookform/resolvers": "^3.6.0",
     "@nangohq/frontend": "^0.40.6",
     "@nangohq/node": "^0.40.6",

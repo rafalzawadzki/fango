@@ -1,0 +1,17 @@
+{
+  "name": "@fango/server",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "main": "dist/index.js",
+  "module": "./dist/index.js",
+  "scripts": {
+    "build": "tsup src/index.ts"
+  },
+  "dependencies": {
+    "@nangohq/node": "^0.40.6",
+    "tsup": "^8.1.0"
+  }
+}

@@ -1,20 +1,35 @@
 'use server'
 
-import { deleteSheetRow, findSheetName, findSheetRow, findSheets, findSpreadsheets, getSheetValues, insertSheetRow, updateSheetRow } from '@/lib/nango/google-sheets/actions'
-import type { DeleteSheetRowParams, FindSheetNameParams, FindSheetRowParams, FindSheetsParams, FindSpreadsheetsParams, GetSheetValuesParams, InsertSheetRowParams, UpdateSheetRowParams } from '@/lib/nango/google-sheets/actions'
+import { locoServer } from '@/lib/fango/server'
 
-export const insertSheetRowAction = async (data: InsertSheetRowParams) => insertSheetRow(data)
+export async function insertSheetRowAction(data: any) {
+  return locoServer.googleSheetServer.insertSheetRow(data)
+}
 
-export const findSheetRowAction = async (data: FindSheetRowParams) => findSheetRow(data)
+export async function findSheetRowAction(data: any) {
+  return locoServer.googleSheetServer.findSheetRow(data)
+}
 
-export const updateSheetRowAction = async (data: UpdateSheetRowParams) => updateSheetRow(data)
+export async function updateSheetRowAction(data: any) {
+  return locoServer.googleSheetServer.updateSheetRow(data)
+}
 
-export const deleteSheetRowAction = async (data: DeleteSheetRowParams) => deleteSheetRow(data)
+export async function deleteSheetRowAction(data: any) {
+  return locoServer.googleSheetServer.deleteSheetRow(data)
+}
 
-export const findSheetsAction = async (data: FindSheetsParams) => findSheets(data)
+export async function findSheetsAction(data: any) {
+  return locoServer.googleSheetServer.findSheets(data)
+}
 
-export const findSpreadsheetsAction = async (data: FindSpreadsheetsParams) => findSpreadsheets(data)
+export async function findSpreadsheetsAction(data: any) {
+  return locoServer.googleSheetServer.findSpreadsheets(data)
+}
 
-export const findSheetNameAction = async (data: FindSheetNameParams) => findSheetName(data)
+export async function findSheetNameAction(data: any) {
+  return locoServer.googleSheetServer.findSheetName(data)
+}
 
-export const getSheetValuesAction = async (data: GetSheetValuesParams) => getSheetValues(data)
+export async function getSheetValuesAction(data: any) {
+  return locoServer.googleSheetServer.getSheetValues(data)
+}
