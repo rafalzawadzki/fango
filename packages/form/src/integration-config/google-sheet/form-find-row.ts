@@ -2,11 +2,11 @@ import { getCommonField } from './form-common'
 import { FormItemFactory } from '@/forms'
 import type { CreateFormParams } from '@/types/form'
 import { PROVIDER_CONFIG_KEY } from './constants'
-import type { LocoClient } from '@fango/client'
+import type { FangoClient } from '@fango/client'
 
-export function getFindRowForm(locoClient: LocoClient): CreateFormParams {
-  const actions = locoClient.actions.get('google-sheet') as any
-  const commonField = getCommonField(locoClient)
+export function getFindRowForm(fangoClient: FangoClient): CreateFormParams {
+  const actions = fangoClient.actions.get('google-sheet') as any
+  const commonField = getCommonField(fangoClient)
   const { findSheetNameAction, findSheetRowAction, getSheetValuesAction } = actions
   return {
     name: 'Find Row',
@@ -18,7 +18,7 @@ export function getFindRowForm(locoClient: LocoClient): CreateFormParams {
       commonField.includeTeamDrives,
       commonField.sheetId,
       FormItemFactory.Select({
-        locoClient,
+        fangoClient,
         fieldName: 'columnName',
         label: 'The name of the column to search in',
         showSearch: true,
@@ -110,25 +110,25 @@ export function getFindRowForm(locoClient: LocoClient): CreateFormParams {
         },
       }),
       FormItemFactory.Input({
-        locoClient,
+        fangoClient,
         fieldName: 'searchValue',
         label: 'Search Value',
         tip: 'The value to search for in the specified column. If left empty, all rows will be returned.',
       }),
       FormItemFactory.Switch({
-        locoClient,
+        fangoClient,
         fieldName: 'matchCase',
         label: 'Exact match',
         tip: 'Whether to choose the rows with exact match or choose the rows that contain the search value',
       }),
       FormItemFactory.Input({
-        locoClient,
+        fangoClient,
         fieldName: 'startingRow',
         label: 'Starting Row',
         tip: 'The row number to start searching from',
       }),
       FormItemFactory.Input({
-        locoClient,
+        fangoClient,
         fieldName: 'numberOfRows',
         label: 'Number of Rows',
         tip: 'The number of rows to return ( the default is 1 if not specified )',

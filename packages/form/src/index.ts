@@ -1,3 +1,3 @@
 import './globals.css'
 
-export { LocoForm } from './LocoForm'
+export { FangoForm } from './FangoForm'

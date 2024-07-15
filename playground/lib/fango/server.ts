@@ -1,3 +1,3 @@
-import { LocoServer } from '@fango/server'
+import { FangoServer } from '@fango/server'
 
-export const locoServer = new LocoServer(process.env.NANGO_HOST!, process.env.NANGO_SECRET_KEY!)
+export const fangoServer = new FangoServer(process.env.NANGO_HOST!, process.env.NANGO_SECRET_KEY!)

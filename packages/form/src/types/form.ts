@@ -1,5 +1,5 @@
 import type { UseFormReturn } from 'react-hook-form'
-import type { LocoClient } from '@fango/client'
+import type { FangoClient } from '@fango/client'
 import type { FormItemType } from '../forms/enums'
 
 export interface ConnectionType {
@@ -41,7 +41,7 @@ export interface OptionsParams {
 }
 
 export interface FormItemConfigParams {
-  locoClient: LocoClient
+  fangoClient: FangoClient
   fieldName: string
   label: string
   required?: boolean

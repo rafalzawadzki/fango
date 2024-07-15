@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic'
 import '@fango/form/dist/style.css'
 
-const LocoForm = dynamic(() => import('@fango/form').then(({ LocoForm }) => LocoForm), {
+const FangoForm = dynamic(() => import('@fango/form').then(({ FangoForm }) => FangoForm), {
   ssr: false,
 })
 
 export {
-  LocoForm,
+  FangoForm,
 }

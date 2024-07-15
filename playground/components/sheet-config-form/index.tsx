@@ -1,13 +1,13 @@
 'use client'
 
-import { LocoForm } from '@/lib/fango/form'
-import { locoClient } from '@/lib/fango/client'
+import { FangoForm } from '@/lib/fango/form'
+import { fangoClient } from '@/lib/fango/client'
 
 export default function SheetConfigForm() {
   return (
-    <LocoForm
+    <FangoForm
       type="google-sheet"
-      locoClient={locoClient}
+      fangoClient={fangoClient}
     />
   )
 }

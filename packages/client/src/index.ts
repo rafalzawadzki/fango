@@ -5,7 +5,7 @@ import type { Action, ActionMap } from './types/action'
 export * from './types/connection'
 export * from './types/action'
 
-export class LocoClient {
+export class FangoClient {
   nango: Nango
   connection_db: ConnectionDatabaseMethods = {}
   actions: Map<ConnectionType, Action> = new Map()

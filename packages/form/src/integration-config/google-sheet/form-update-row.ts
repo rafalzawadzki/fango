@@ -1,11 +1,11 @@
 import { getCommonField } from './form-common'
 import type { CreateFormParams } from '@/types/form'
 import { PROVIDER_CONFIG_KEY } from './constants'
-import type { LocoClient } from '@fango/client'
+import type { FangoClient } from '@fango/client'
 
-export function getUpdateRowForm(locoClient: LocoClient): CreateFormParams {
-  const actions = locoClient.actions.get('google-sheet') as any
-  const commonField = getCommonField(locoClient)
+export function getUpdateRowForm(fangoClient: FangoClient): CreateFormParams {
+  const actions = fangoClient.actions.get('google-sheet') as any
+  const commonField = getCommonField(fangoClient)
   return {
     name: 'Update Row',
     providerConfigKey: PROVIDER_CONFIG_KEY,

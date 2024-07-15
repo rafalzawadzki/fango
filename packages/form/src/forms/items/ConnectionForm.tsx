@@ -42,7 +42,7 @@ const connectionSchema = z.object({
 const connectionFormResolver = zodResolver(connectionSchema)
 type ConnectionFormType = z.infer<typeof connectionSchema>
 
-export function ConnectionForm({ locoClient, field, form, providerConfigKey, authConfig }: FormItemConfig) {
+export function ConnectionForm({ fangoClient, field, form, providerConfigKey, authConfig }: FormItemConfig) {
   const addForm = useForm<ConnectionFormType>({
     resolver: connectionFormResolver,
   })
@@ -54,7 +54,7 @@ export function ConnectionForm({ locoClient, field, form, providerConfigKey, aut
   const [editingConnectionId, setEditingConnectionId] = useState('')
   const addConnectionId = useRef<string>('')
 
-  const { createConnection, getConnections, updateConnection } = locoClient.connection_db || {}
+  const { createConnection, getConnections, updateConnection } = fangoClient.connection_db || {}
 
   if (!createConnection || !getConnections || !updateConnection) {
     throw new Error('Connection DB not available')
@@ -94,14 +94,14 @@ export function ConnectionForm({ locoClient, field, form, providerConfigKey, aut
     setLoading(true)
     try {
       if (editingConnectionId) {
-        await locoClient.nango.auth(providerConfigKey, editingConnectionId, {
+        await fangoClient.nango.auth(providerConfigKey, editingConnectionId, {
           detectClosedAuthWindow: true,
         })
       }
       else {
         const id = generateConnectionId()
         addConnectionId.current = id
-        await locoClient.nango.auth(providerConfigKey, id, {
+        await fangoClient.nango.auth(providerConfigKey, id, {
           detectClosedAuthWindow: true,
           ...authConfig,
         })

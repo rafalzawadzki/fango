@@ -1,12 +1,12 @@
-import type { LocoClient } from '@fango/client'
+import type { FangoClient } from '@fango/client'
 import { authConfig, getCommonField } from './form-common'
 import { PROVIDER_CONFIG_KEY } from './constants'
 import type { CreateFormParams } from '@/types/form'
 import { FormItemFactory } from '@/forms'
 
-export function getSendMessageForm(locoClient: LocoClient): CreateFormParams {
-  const actions = locoClient.actions.get('slack') as any
-  const commonField = getCommonField(locoClient)
+export function getSendMessageForm(fangoClient: FangoClient): CreateFormParams {
+  const actions = fangoClient.actions.get('slack') as any
+  const commonField = getCommonField(fangoClient)
   const { sendMessageToChannelAction } = actions
   return {
     name: 'Delete Row',
@@ -18,7 +18,7 @@ export function getSendMessageForm(locoClient: LocoClient): CreateFormParams {
       commonField.slackInfo,
       commonField.channel,
       FormItemFactory.Input({
-        locoClient,
+        fangoClient,
         fieldName: 'text',
         label: 'Message',
         required: true,
@@ -28,7 +28,7 @@ export function getSendMessageForm(locoClient: LocoClient): CreateFormParams {
       commonField.username,
       commonField.profilePicture,
       FormItemFactory.Input({
-        locoClient,
+        fangoClient,
         fieldName: 'threadTs',
         label: 'Thread ts',
         tip: 'Provide the ts (timestamp) value of the **parent** message to make this message a reply. Do not use the ts value of the reply itself; use its parent instead. For example `1710304378.475129`.Alternatively, you can easily obtain the message link by clicking on the three dots next to the parent message and selecting the `Copy link` option.',

@@ -1,35 +1,35 @@
 'use server'
 
-import { locoServer } from '@/lib/fango/server'
+import { fangoServer } from '@/lib/fango/server'
 
 export async function insertSheetRowAction(data: any) {
-  return locoServer.googleSheetServer.insertSheetRow(data)
+  return fangoServer.googleSheetServer.insertSheetRow(data)
 }
 
 export async function findSheetRowAction(data: any) {
-  return locoServer.googleSheetServer.findSheetRow(data)
+  return fangoServer.googleSheetServer.findSheetRow(data)
 }
 
 export async function updateSheetRowAction(data: any) {
-  return locoServer.googleSheetServer.updateSheetRow(data)
+  return fangoServer.googleSheetServer.updateSheetRow(data)
 }
 
 export async function deleteSheetRowAction(data: any) {
-  return locoServer.googleSheetServer.deleteSheetRow(data)
+  return fangoServer.googleSheetServer.deleteSheetRow(data)
 }
 
 export async function findSheetsAction(data: any) {
-  return locoServer.googleSheetServer.findSheets(data)
+  return fangoServer.googleSheetServer.findSheets(data)
 }
 
 export async function findSpreadsheetsAction(data: any) {
-  return locoServer.googleSheetServer.findSpreadsheets(data)
+  return fangoServer.googleSheetServer.findSpreadsheets(data)
 }
 
 export async function findSheetNameAction(data: any) {
-  return locoServer.googleSheetServer.findSheetName(data)
+  return fangoServer.googleSheetServer.findSheetName(data)
 }
 
 export async function getSheetValuesAction(data: any) {
-  return locoServer.googleSheetServer.getSheetValues(data)
+  return fangoServer.googleSheetServer.getSheetValues(data)
 }

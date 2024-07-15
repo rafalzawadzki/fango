@@ -1,29 +1,29 @@
-import type { LocoClient, SlackAction } from '@fango/client'
+import type { FangoClient, SlackAction } from '@fango/client'
 import { FormItemFactory } from '@/forms'
 
 export const authConfig = {
   user_scope: ['search:read', 'users.profile:write'],
 }
 
-export function getCommonField(locoClient: LocoClient) {
-  const { findChannelsAction } = locoClient.actions.get('slack') as SlackAction
+export function getCommonField(fangoClient: FangoClient) {
+  const { findChannelsAction } = fangoClient.actions.get('slack') as SlackAction
   return {
     auth: FormItemFactory.Switch({
-      locoClient,
+      fangoClient,
       fieldName: 'auth',
       label: 'Auth',
       hidden: true,
       cache: true,
     }),
     connectionId: FormItemFactory.Connection({
-      locoClient,
+      fangoClient,
       fieldName: 'connectionId',
       label: 'Connection',
       required: true,
       cache: true,
     }),
     channel: FormItemFactory.Select({
-      locoClient,
+      fangoClient,
       fieldName: 'channel',
       label: 'Channel',
       required: true,
@@ -53,19 +53,19 @@ export function getCommonField(locoClient: LocoClient) {
       },
     }),
     username: FormItemFactory.Input({
-      locoClient,
+      fangoClient,
       fieldName: 'username',
       label: 'Username',
       tip: 'The username of the bot',
     }),
     profilePicture: FormItemFactory.Input({
-      locoClient,
+      fangoClient,
       fieldName: 'profilePicture',
       label: 'Profile Picture',
       tip: 'The profile picture of the bot',
     }),
     slackInfo: FormItemFactory.Markdown({
-      locoClient,
+      fangoClient,
       fieldName: '',
       label: '',
       tip: `

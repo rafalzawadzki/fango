@@ -2,11 +2,11 @@ import { getCommonField } from './form-common'
 import { FormItemFactory } from '@/forms'
 import type { CreateFormParams } from '@/types/form'
 import { PROVIDER_CONFIG_KEY } from './constants'
-import type { LocoClient } from '@fango/client'
+import type { FangoClient } from '@fango/client'
 
-export function getInsertRowForm(locoClient: LocoClient): CreateFormParams {
-  const actions = locoClient.actions.get('google-sheet') as any
-  const commonField = getCommonField(locoClient)
+export function getInsertRowForm(fangoClient: FangoClient): CreateFormParams {
+  const actions = fangoClient.actions.get('google-sheet') as any
+  const commonField = getCommonField(fangoClient)
   return {
     name: 'Insert Row',
     providerConfigKey: PROVIDER_CONFIG_KEY,
@@ -17,7 +17,7 @@ export function getInsertRowForm(locoClient: LocoClient): CreateFormParams {
       commonField.includeTeamDrives,
       commonField.sheetId,
       FormItemFactory.Switch({
-        locoClient,
+        fangoClient,
         fieldName: 'asString',
         label: 'As String',
         tip: 'Inserted values that are dates and formulas will be entered strings and have no effect',

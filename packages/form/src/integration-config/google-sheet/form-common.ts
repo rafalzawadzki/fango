@@ -1,30 +1,30 @@
-import type { GoogleSheetAction, LocoClient } from '@fango/client'
+import type { GoogleSheetAction, FangoClient } from '@fango/client'
 import { FormItemFactory } from '@/forms'
 
-export function getCommonField(locoClient: LocoClient) {
+export function getCommonField(fangoClient: FangoClient) {
   const {
     findSheetsAction,
     findSpreadsheetsAction,
     getSheetValuesAction,
-  } = locoClient.actions.get('google-sheet') as GoogleSheetAction
+  } = fangoClient.actions.get('google-sheet') as GoogleSheetAction
 
   return {
     auth: FormItemFactory.Switch({
-      locoClient,
+      fangoClient,
       fieldName: 'auth',
       label: 'Auth',
       hidden: true,
       cache: true,
     }),
     connectionId: FormItemFactory.Connection({
-      locoClient,
+      fangoClient,
       fieldName: 'connectionId',
       label: 'Connection',
       required: true,
       cache: true,
     }),
     spreadsheetId: FormItemFactory.Select({
-      locoClient,
+      fangoClient,
       fieldName: 'spreadsheetId',
       label: 'Spreadsheet ID',
       required: true,
@@ -54,14 +54,14 @@ export function getCommonField(locoClient: LocoClient) {
       },
     }),
     includeTeamDrives: FormItemFactory.Switch({
-      locoClient,
+      fangoClient,
       fieldName: 'includeTeamDrives',
       label: 'Include Team Drive Sheets',
       tip: 'Determines if sheets from Team Drives should be included in the results.',
       cache: true,
     }),
     sheetId: FormItemFactory.Select({
-      locoClient,
+      fangoClient,
       fieldName: 'sheetId',
       label: 'Sheet',
       required: true,
@@ -90,7 +90,7 @@ export function getCommonField(locoClient: LocoClient) {
       },
     }),
     values: FormItemFactory.ValueList({
-      locoClient,
+      fangoClient,
       fieldName: 'values',
       label: 'Values',
       refreshers: ['sheetId', 'spreadsheetId', 'firstRowHeaders'],
@@ -139,14 +139,14 @@ export function getCommonField(locoClient: LocoClient) {
       },
     }),
     rowId: FormItemFactory.Input({
-      locoClient,
+      fangoClient: fangoClient,
       fieldName: 'rowId',
       label: 'Row Number',
       tip: 'The row number to remove',
       required: true,
     }),
     firstRowHeaders: FormItemFactory.Switch({
-      locoClient,
+      fangoClient: fangoClient,
       fieldName: 'firstRowHeaders',
       label: 'Does the first row contain headers?',
       tip: 'If the first row is headers',

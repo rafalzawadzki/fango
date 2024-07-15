@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type { ConnectionType, LocoClient } from '@fango/client'
+import type { ConnectionType, FangoClient } from '@fango/client'
 import type { CreateFormParams } from './types/form'
 import { actionResolver, getFormConfigFuncByAction, normalizeFormList } from './integration-config'
 import type { ActionFormType, FormType } from './integration-config'
@@ -21,9 +21,9 @@ import {
 } from '@/components/ui/select'
 import { CreateForm } from '@/forms'
 
-export interface LocoFormParams {
+export interface FangoFormParams {
   type: ConnectionType
-  locoClient: LocoClient
+  fangoClient: FangoClient
   defaultForm?: FormType
   forms?: Array<{
     value: FormType
@@ -32,20 +32,20 @@ export interface LocoFormParams {
   onSubmit?: (data: any) => Promise<void>
 }
 
-export function LocoForm({
+export function FangoForm({
   type,
-  locoClient,
+  fangoClient,
   forms,
   defaultForm,
   onSubmit,
-}: LocoFormParams) {
+}: FangoFormParams) {
   const formList = normalizeFormList(type, forms)!
   const defaultAction = defaultForm || formList[0].value
   const formConfigFunc = getFormConfigFuncByAction(type, defaultAction)
   if (!formConfigFunc) {
     throw new Error(`Form config function not found for action: ${defaultAction}`)
   }
-  const defaultFormConfig = formConfigFunc(locoClient)
+  const defaultFormConfig = formConfigFunc(fangoClient)
 
   const form = useForm<ActionFormType>({
     resolver: actionResolver,
@@ -59,7 +59,7 @@ export function LocoForm({
   const handleActionChange = (action: FormType) => {
     const formConfigFunc = getFormConfigFuncByAction(type, action)
     if (formConfigFunc) {
-      setCurrentFormConfig(formConfigFunc(locoClient))
+      setCurrentFormConfig(formConfigFunc(fangoClient))
     }
   }
 
