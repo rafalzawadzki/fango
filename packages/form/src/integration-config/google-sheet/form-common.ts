@@ -1,6 +1,5 @@
-import type { LocoClient } from '@fango/client'
+import type { GoogleSheetAction, LocoClient } from '@fango/client'
 import { FormItemFactory } from '@/forms'
-import type { GoogleSheetAction } from '@/types/action'
 
 export function getCommonField(locoClient: LocoClient) {
   const {

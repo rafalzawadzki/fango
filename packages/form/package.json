@@ -1,11 +1,14 @@
 {
   "name": "@fango/form",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build"
+  },
+  "peerDependencies": {
+    "@fango/client": "^0.0.1"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",

@@ -2,6 +2,9 @@ import Nango from '@nangohq/frontend'
 import type { ConnectionDatabaseMethods, ConnectionType } from './types/connection'
 import type { Action, ActionMap } from './types/action'
 
+export * from './types/connection'
+export * from './types/action'
+
 export class LocoClient {
   nango: Nango
   connection_db: ConnectionDatabaseMethods = {}

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type { LocoClient } from '@fango/client'
+import type { ConnectionType, LocoClient } from '@fango/client'
 import type { CreateFormParams } from './types/form'
 import { actionResolver, getFormConfigFuncByAction, normalizeFormList } from './integration-config'
 import type { ActionFormType, FormType } from './integration-config'
-import type { ConnectionType } from './types/connection'
 import {
   Form,
   FormControl,

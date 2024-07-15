@@ -1,11 +1,11 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import type { ConnectionType } from '@fango/client'
 import { getInsertRowForm } from './google-sheet/form-insert-row'
 import { getUpdateRowForm } from './google-sheet/form-update-row'
 import { getDeleteRowForm } from './google-sheet/form-delete-row'
 import { getFindRowForm } from './google-sheet/form-find-row'
 import { getSendMessageForm } from './slack/form-send-message'
-import type { ConnectionType } from '@/types/connection'
 
 export enum GoogleSheetFormType {
   InsertRow = '1',

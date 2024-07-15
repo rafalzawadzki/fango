@@ -1,6 +1,5 @@
-import type { LocoClient } from '@fango/client'
+import type { LocoClient, SlackAction } from '@fango/client'
 import { FormItemFactory } from '@/forms'
-import type { SlackAction } from '@/types/action'
 
 export const authConfig = {
   user_scope: ['search:read', 'users.profile:write'],
