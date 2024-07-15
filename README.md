@@ -2,7 +2,7 @@
 
 This library provides UI for Nango and makes it easier to integrate it into your Next.js project.
 
-[shadcn/ui](https://ui.shadcn.com) x [nango](https://www.nango.dev):
+[nango](https://www.nango.dev) x [shadcn/ui](https://ui.shadcn.com):
 
 ![Fango Screenshot](./assets/screenshot.png)
 
@@ -22,37 +22,37 @@ const fangoServer = new FangoServer(NANGO_HOST, NANGO_SECRET_KEY)
 
 // server-side: set up sync for connections (db calls etc)
 fangoServer.setConnectionDatabase({
-	getConnection: (id: string) => Connection,
-	getConnections: (...) => Connection[]
-	createConnection: (...) => Connection,
-	updateConnection: (...) => Connection,
-	deleteConnection: (...) => void
+  getConnection: (id: string) => Connection,
+  getConnections: (...) => Connection[]
+  createConnection: (...) => Connection,
+  updateConnection: (...) => Connection,
+  deleteConnection: (...) => void
 })
 
 // server-side: calling the APIs, can be used to verify auth
 // (in Next would be API routes or server actions)
 fangoClient.setServerActions('google-sheets', {
-	// 'use server'
-	findSpreadsheetsAction: (data) => {
+  // 'use server'
+  findSpreadsheetsAction: (data) => {
     // optionally check permissions etc
-		return fangoServer.findSpreadsheets(data)
-	}
+    return fangoServer.findSpreadsheets(data)
+  }
 })
 
 // client-side: will render form for specific integration 
 <FangoForm 
-	fangoClient={fangoClient} 
-	type='google-sheets'
-	/* can do something with the form values */
-	onSubmit={(connectionConfig) => save(connectionConfig)} 
+  fangoClient={fangoClient} 
+  type='google-sheets'
+  /* can do something with the form values */
+  onSubmit={(connectionConfig) => save(connectionConfig)} 
 />
 
 // server-side: run actions when needed
 fangoServer.run({
-	connectionId: 'somestring', 
-	type: 'google-sheets', 
-	action: 'insert-row', 
-	payload: object
+  connectionId: 'somestring', 
+  type: 'google-sheets', 
+  action: 'insert-row', 
+  payload: object
 })
 ```
 
