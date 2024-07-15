@@ -18,8 +18,4 @@ export class LocoServer {
     this.googleSheetServer = new GoogleSheetServer(this.nango)
     this.slackServer = new SlackServer(this.nango)
   }
-
-  run() {
-    console.log('LocoServer is running')
-  }
 }
