@@ -102,8 +102,8 @@ export function SelectForm({ field, form, refreshers, options, placeholder, show
             )
           }
           {
-            filteredItems.map((item, index) => (
-              <SelectItem disabled={disabled} key={index} value={String(item.value)}>{item.label}</SelectItem>
+            filteredItems.map(item => (
+              <SelectItem disabled={disabled} key={item.value} value={String(item.value)}>{item.label}</SelectItem>
             ))
           }
         </SelectContent>
