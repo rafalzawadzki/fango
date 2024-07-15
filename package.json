@@ -22,6 +22,10 @@
     "build:server": "cd packages/server && pnpm run build",
     "build:client": "cd packages/client && pnpm run build",
     "build:form": "cd packages/form && pnpm run build",
+    "publish-all": "npm run publish-client && npm run publish-server && npm run publish-form",
+    "publish-client": "cd packages/client && npm publish",
+    "publish-server": "cd packages/server && npm publish",
+    "publish-form": "cd packages/form && npm publish",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

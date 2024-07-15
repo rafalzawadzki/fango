@@ -2,6 +2,18 @@
   "name": "@fango/form",
   "type": "module",
   "version": "0.0.1",
+  "description": "Fango: Forms for Nango (Forms)",
+  "license": "ISC",
+  "author": {
+    "name": "Rafal Zawadzki",
+    "url": "https://rafal.fyi"
+  },
+  "contributors": [
+    {
+      "name": "Patrick Chen",
+      "url": "https://github.com/PatrickChen928"
+    }
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
