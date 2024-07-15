@@ -1,10 +1,19 @@
 {
   "name": "fango",
-  "version": "1.0.0",
-  "private": true,
-  "description": "",
-  "author": "",
+  "version": "0.0.1",
+  "private": false,
+  "description": "Fango: Forms for Nango",
   "license": "ISC",
+  "author": {
+    "name": "Rafal Zawadzki",
+    "url": "https://rafal.fyi"
+  },
+  "contributors": [
+    {
+      "name": "Patrick Chen",
+      "url": "https://github.com/PatrickChen928"
+    }
+  ],
   "keywords": [],
   "main": "./dist/index.js",
   "scripts": {
