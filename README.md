@@ -39,35 +39,35 @@ fangoClient.setServerActions('google-sheets', {
   }
 })
 
-// client-side: will render form for specific integration 
-<FangoForm 
-  fangoClient={fangoClient} 
+// client-side: will render form for specific integration
+<FangoForm
+  fangoClient={fangoClient}
   type='google-sheets'
   /* can do something with the form values */
-  onSubmit={(connectionConfig) => save(connectionConfig)} 
+  onSubmit={(connectionConfig) => save(connectionConfig)}
 />
 
 // server-side: run actions when needed
 fangoServer.run({
-  connectionId: 'somestring', 
-  type: 'google-sheets', 
-  action: 'insert-row', 
+  connectionId: 'somestring',
+  type: 'google-sheets',
+  action: 'insert-row',
   payload: object
 })
 ```
 
 ## Playground example in Next.js
 
-See working example in `/playground`. 
+See working example in `/playground`.
 
 Steps to run:
+
 - Clone the repository and `cd playground`
 - run `pnpm i`
 - Add `.env` file with `NANGO_HOST`, `NANGO_SECRET_KEY` and `NEXT_PUBLIC_NANGO_PUBLIC_KEY`.
 - run `pnpm dev`.
-- go to `http://localhost:8888`.
+- go to `http://localhost:3000`.
 
 ## Contributing
 
 Contributions are welcome. To start the development, make sure to also build the packages with `pnpm build`.
-
