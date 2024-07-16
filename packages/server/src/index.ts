@@ -1,6 +1,6 @@
 import { Nango } from '@nangohq/node'
 import { SlackServer } from './slack'
-import { GoogleSheetServer } from './google-sheets'
+import { GoogleSheetServer } from './google-sheet'
 
 export class FangoServer {
   nango: Nango
