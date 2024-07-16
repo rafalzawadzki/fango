@@ -40,7 +40,7 @@ export function getCommonField(fangoClient: FangoClient) {
         if (!connectionId) {
           return {
             disabled: false,
-            placeholder: 'Connect slack account first',
+            placeholder: 'Connect Slack account first',
             options: [],
           }
         }

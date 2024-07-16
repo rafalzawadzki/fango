@@ -9,7 +9,7 @@ export function getSendMessageForm(fangoClient: FangoClient): CreateFormParams {
   const commonField = getCommonField(fangoClient)
   const { sendMessageToChannelAction } = actions
   return {
-    name: 'Delete Row',
+    name: 'Send Message',
     providerConfigKey: PROVIDER_CONFIG_KEY,
     authConfig,
     fields: [

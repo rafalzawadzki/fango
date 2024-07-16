@@ -16,6 +16,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -167,7 +168,7 @@ export function ConnectionForm({
           }}
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select an connection" />
+            <SelectValue placeholder="Select a connection" />
           </SelectTrigger>
           <SelectContent>
             <DialogTrigger asChild>
@@ -195,7 +196,7 @@ export function ConnectionForm({
       </div>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>New Google Sheets Connection</DialogTitle>
+          <DialogTitle>New Connection</DialogTitle>
         </DialogHeader>
         <Form {...addForm}>
           <form className="space-y-8">
@@ -204,7 +205,10 @@ export function ConnectionForm({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Name of the Connection</FormLabel>
+                  <FormDescription>
+                    A name to remember this connection later.
+                  </FormDescription>
                   <FormControl>
                     <Input
                       {...field}

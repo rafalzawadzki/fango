@@ -130,7 +130,7 @@ export function getFindRowForm(fangoClient: FangoClient): CreateFormParams {
         fangoClient,
         fieldName: 'numberOfRows',
         label: 'Number of Rows',
-        tip: 'The number of rows to return ( the default is 1 if not specified )',
+        tip: 'The number of rows to return (the default is 1 if not specified)',
       }),
     ],
     run: async (values: any) => {
