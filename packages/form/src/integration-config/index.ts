@@ -1,10 +1,10 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { ConnectionType } from '@fango/client'
-import { getInsertRowForm } from './google-sheet/form-insert-row'
-import { getUpdateRowForm } from './google-sheet/form-update-row'
-import { getDeleteRowForm } from './google-sheet/form-delete-row'
-import { getFindRowForm } from './google-sheet/form-find-row'
+import { getInsertRowForm } from './google-sheets/form-insert-row'
+import { getUpdateRowForm } from './google-sheets/form-update-row'
+import { getDeleteRowForm } from './google-sheets/form-delete-row'
+import { getFindRowForm } from './google-sheets/form-find-row'
 import { getSendMessageForm } from './slack/form-send-message'
 
 export enum GoogleSheetFormType {
@@ -47,8 +47,8 @@ export const SlackFormList = [
 export type FormType = GoogleSheetFormType | SlackFormType
 
 export interface FormTypeMap {
-  'google-sheet': GoogleSheetFormType
-  'slack': SlackFormType
+  'google-sheets': GoogleSheetFormType
+  slack: SlackFormType
 }
 
 export const actionSchema = z.object({
@@ -57,11 +57,14 @@ export const actionSchema = z.object({
 export type ActionFormType = z.infer<typeof actionSchema>
 export const actionResolver = zodResolver(actionSchema)
 
-export function normalizeFormList<T extends ConnectionType>(type: T, forms?: Array<{
-  value: FormTypeMap[T]
-  label: string
-}>) {
-  if (type === 'google-sheet') {
+export function normalizeFormList<T extends ConnectionType>(
+  type: T,
+  forms?: Array<{
+    value: FormTypeMap[T]
+    label: string
+  }>,
+) {
+  if (type === 'google-sheets') {
     return forms || GoogleSheetFormList
   }
 
@@ -70,8 +73,11 @@ export function normalizeFormList<T extends ConnectionType>(type: T, forms?: Arr
   }
 }
 
-export function getFormConfigFuncByAction(type: ConnectionType, action: FormType) {
-  if (type === 'google-sheet') {
+export function getFormConfigFuncByAction(
+  type: ConnectionType,
+  action: FormType,
+) {
+  if (type === 'google-sheets') {
     switch (action) {
       case GoogleSheetFormType.InsertRow:
         return getInsertRowForm

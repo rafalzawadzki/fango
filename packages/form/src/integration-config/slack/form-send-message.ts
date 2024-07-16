@@ -36,7 +36,14 @@ export function getSendMessageForm(fangoClient: FangoClient): CreateFormParams {
       }),
     ],
     run: async (values: any) => {
-      const { connectionId, text, channel, username, profilePicture, threadTs } = values
+      const {
+        connectionId,
+        text,
+        channel,
+        username,
+        profilePicture,
+        threadTs,
+      } = values
       const res = await sendMessageToChannelAction({
         connectionId,
         text,

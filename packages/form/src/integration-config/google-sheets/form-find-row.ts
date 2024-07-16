@@ -5,9 +5,10 @@ import { PROVIDER_CONFIG_KEY } from './constants'
 import type { FangoClient } from '@fango/client'
 
 export function getFindRowForm(fangoClient: FangoClient): CreateFormParams {
-  const actions = fangoClient.actions.get('google-sheet') as any
+  const actions = fangoClient.actions.get('google-sheets') as any
   const commonField = getCommonField(fangoClient)
-  const { findSheetNameAction, findSheetRowAction, getSheetValuesAction } = actions
+  const { findSheetNameAction, findSheetRowAction, getSheetValuesAction } =
+    actions
   return {
     name: 'Find Row',
     providerConfigKey: PROVIDER_CONFIG_KEY,
@@ -31,8 +32,8 @@ export function getFindRowForm(fangoClient: FangoClient): CreateFormParams {
             field.onChange('')
           }
           if (
-            (spreadsheetId ?? '').toString().length === 0
-            || (sheetId ?? '').toString().length === 0
+            (spreadsheetId ?? '').toString().length === 0 ||
+            (sheetId ?? '').toString().length === 0
           ) {
             return {
               disabled: true,
@@ -80,19 +81,17 @@ export function getFindRowForm(fangoClient: FangoClient): CreateFormParams {
                 value: alphabet[i],
               })
             }
-          }
-          else {
+          } else {
             let index = 0
             for (const key in firstRow) {
               let value = 'A'
               if (index >= alphabet.length) {
                 // if the index is greater than the length of the alphabet, we need to add another letter
-                const firstLetter
-                  = alphabet[Math.floor(index / alphabet.length) - 1]
+                const firstLetter =
+                  alphabet[Math.floor(index / alphabet.length) - 1]
                 const secondLetter = alphabet[index % alphabet.length]
                 value = firstLetter + secondLetter
-              }
-              else {
+              } else {
                 value = alphabet[index]
               }
 

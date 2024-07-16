@@ -22,9 +22,9 @@ export default defineConfig({
       external: ['react', 'react-dom', 'tailwindcss'],
       output: {
         globals: {
-          'react': 'React',
+          react: 'React',
           'react-dom': 'ReactDOM',
-          'tailwindcss': 'tailwindcss',
+          tailwindcss: 'tailwindcss',
         },
       },
     },

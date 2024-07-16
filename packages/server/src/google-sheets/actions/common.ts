@@ -27,22 +27,30 @@ export interface GetSheetValuesParams {
   sheetId: number
 }
 
-export async function findConnectionCredentials(nango: Nango, connectionId: string) {
-  const connectionConfig = await nango.getConnection(PROVIDER_CONFIG_KEY, connectionId)
+export async function findConnectionCredentials(
+  nango: Nango,
+  connectionId: string,
+) {
+  const connectionConfig = await nango.getConnection(
+    PROVIDER_CONFIG_KEY,
+    connectionId,
+  )
   return connectionConfig.credentials as OAuth2Credentials
 }
 
-export async function findSpreadsheets(nango: Nango, {
-  connectionId,
-  searchValue,
-  includeTeamDrives,
-}: FindSpreadsheetsParams) {
+export async function findSpreadsheets(
+  nango: Nango,
+  { connectionId, searchValue, includeTeamDrives }: FindSpreadsheetsParams,
+) {
   console.log('findSpreadsheets', connectionId, searchValue, includeTeamDrives)
   if (!connectionId) {
     throw new Error('Connection ID is required')
   }
   const credentials = await findConnectionCredentials(nango, connectionId)
-  const queries = ['mimeType=\'application/vnd.google-apps.spreadsheet\'', 'trashed=false']
+  const queries = [
+    "mimeType='application/vnd.google-apps.spreadsheet'",
+    'trashed=false',
+  ]
   if (searchValue) {
     queries.push(`name contains '${searchValue}'`)
   }
@@ -64,7 +72,10 @@ export async function findSpreadsheets(nango: Nango, {
   return res.data?.files || []
 }
 
-export async function findSheets(nango: Nango, { spreadsheetId, connectionId, accessToken }: FindSheetsParams) {
+export async function findSheets(
+  nango: Nango,
+  { spreadsheetId, connectionId, accessToken }: FindSheetsParams,
+) {
   let access_token = accessToken
   if (!accessToken) {
     const credentials = await findConnectionCredentials(nango, connectionId)
@@ -83,19 +94,38 @@ export async function findSheets(nango: Nango, { spreadsheetId, connectionId, ac
   return res.data?.sheets || []
 }
 
-export async function findSheetName(nango: Nango, { sheetId, spreadsheetId, connectionId, accessToken }: FindSheetNameParams) {
-  const sheets = await findSheets(nango, { spreadsheetId, connectionId, accessToken })
-  const sheetName = sheets.find((f: any) => f.properties.sheetId === Number(sheetId))?.properties.title
+export async function findSheetName(
+  nango: Nango,
+  { sheetId, spreadsheetId, connectionId, accessToken }: FindSheetNameParams,
+) {
+  const sheets = await findSheets(nango, {
+    spreadsheetId,
+    connectionId,
+    accessToken,
+  })
+  const sheetName = sheets.find(
+    (f: any) => f.properties.sheetId === Number(sheetId),
+  )?.properties.title
   if (!sheetName) {
-    throw new Error(`Sheet with ID ${sheetId} not found in spreadsheet ${spreadsheetId}`)
+    throw new Error(
+      `Sheet with ID ${sheetId} not found in spreadsheet ${spreadsheetId}`,
+    )
   }
   return sheetName
 }
 
-export async function getSheetValues(nango: Nango, { spreadsheetId, sheetId, connectionId }: GetSheetValuesParams) {
+export async function getSheetValues(
+  nango: Nango,
+  { spreadsheetId, sheetId, connectionId }: GetSheetValuesParams,
+) {
   const credentials = await findConnectionCredentials(nango, connectionId)
   const accessToken = credentials.access_token
-  const sheetName = await findSheetName(nango, { spreadsheetId, sheetId, connectionId, accessToken })
+  const sheetName = await findSheetName(nango, {
+    spreadsheetId,
+    sheetId,
+    connectionId,
+    accessToken,
+  })
   if (!sheetName) {
     return []
   }
@@ -110,8 +140,7 @@ export async function getSheetValues(nango: Nango, { spreadsheetId, sheetId, con
     },
   })
 
-  if (response.data.values === undefined)
-    return []
+  if (response.data.values === undefined) return []
 
   const values = response.data.values
   const res = []

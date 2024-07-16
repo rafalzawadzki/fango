@@ -1,6 +1,10 @@
 import type { Nango } from '@nangohq/node'
 
-import { type SendMessageToChannelParams, findChannels, sendMessageToChannel } from './actions'
+import {
+  type SendMessageToChannelParams,
+  findChannels,
+  sendMessageToChannel,
+} from './actions'
 
 export class SlackServer {
   nango: Nango

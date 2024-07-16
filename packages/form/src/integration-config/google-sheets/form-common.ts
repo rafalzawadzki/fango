@@ -2,11 +2,8 @@ import type { GoogleSheetAction, FangoClient } from '@fango/client'
 import { FormItemFactory } from '@/forms'
 
 export function getCommonField(fangoClient: FangoClient) {
-  const {
-    findSheetsAction,
-    findSpreadsheetsAction,
-    getSheetValuesAction,
-  } = fangoClient.actions.get('google-sheet') as GoogleSheetAction
+  const { findSheetsAction, findSpreadsheetsAction, getSheetValuesAction } =
+    fangoClient.actions.get('google-sheets') as GoogleSheetAction
 
   return {
     auth: FormItemFactory.Switch({
@@ -45,8 +42,14 @@ export function getCommonField(fangoClient: FangoClient) {
           }
         }
 
-        const res = await findSpreadsheetsAction({ connectionId, includeTeamDrives })
-        const options = res.map((sheet: any) => ({ value: sheet.id, label: sheet.name }))
+        const res = await findSpreadsheetsAction({
+          connectionId,
+          includeTeamDrives,
+        })
+        const options = res.map((sheet: any) => ({
+          value: sheet.id,
+          label: sheet.name,
+        }))
         return {
           options,
           disabled: false,
@@ -82,7 +85,10 @@ export function getCommonField(fangoClient: FangoClient) {
         }
 
         const res = await findSheetsAction({ connectionId, spreadsheetId })
-        const options = res.map((sheet: any) => ({ value: sheet.properties.sheetId, label: sheet.properties.title }))
+        const options = res.map((sheet: any) => ({
+          value: sheet.properties.sheetId,
+          label: sheet.properties.title,
+        }))
         return {
           options,
           disabled: false,
@@ -109,7 +115,11 @@ export function getCommonField(fangoClient: FangoClient) {
         }
         const connectionId = form.getValues('connectionId')
 
-        const values = await getSheetValuesAction({ sheetId, spreadsheetId, connectionId })
+        const values = await getSheetValuesAction({
+          sheetId,
+          spreadsheetId,
+          connectionId,
+        })
 
         if (!firstRowHeaders) {
           return {

@@ -1,6 +1,13 @@
 import type { FormItemConfigParams, FormItemControlParams } from '../types/form'
 import { FormItemType } from './enums'
-import { ConnectionForm, InputForm, Markdown, SelectForm, SwitchForm, ValueListForm } from './items'
+import {
+  ConnectionForm,
+  InputForm,
+  Markdown,
+  SelectForm,
+  SwitchForm,
+  ValueListForm,
+} from './items'
 
 function getFormControl(type: FormItemType) {
   switch (type) {
@@ -26,18 +33,25 @@ function createFormItem(config: FormItemConfigParams, type: FormItemType) {
   return {
     ...config,
     type,
-    control: (controlConfig: FormItemControlParams) => formControl({
-      ...config,
-      ...controlConfig,
-    }),
+    control: (controlConfig: FormItemControlParams) =>
+      formControl({
+        ...config,
+        ...controlConfig,
+      }),
   }
 }
 
 export const FormItemFactory = {
-  Connection: (config: FormItemConfigParams) => createFormItem(config, FormItemType.CONNECTION),
-  Switch: (config: FormItemConfigParams) => createFormItem(config, FormItemType.SWITCH),
-  Select: (config: FormItemConfigParams) => createFormItem(config, FormItemType.SELECT),
-  ValueList: (config: FormItemConfigParams) => createFormItem(config, FormItemType.VALUE_LIST),
-  Input: (config: FormItemConfigParams) => createFormItem(config, FormItemType.INPUT),
-  Markdown: (config: FormItemConfigParams) => createFormItem(config, FormItemType.MARKDOWN),
+  Connection: (config: FormItemConfigParams) =>
+    createFormItem(config, FormItemType.CONNECTION),
+  Switch: (config: FormItemConfigParams) =>
+    createFormItem(config, FormItemType.SWITCH),
+  Select: (config: FormItemConfigParams) =>
+    createFormItem(config, FormItemType.SELECT),
+  ValueList: (config: FormItemConfigParams) =>
+    createFormItem(config, FormItemType.VALUE_LIST),
+  Input: (config: FormItemConfigParams) =>
+    createFormItem(config, FormItemType.INPUT),
+  Markdown: (config: FormItemConfigParams) =>
+    createFormItem(config, FormItemType.MARKDOWN),
 }

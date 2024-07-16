@@ -1,13 +1,8 @@
-'use client'
+"use client";
 
-import { FangoForm } from '@/lib/fango/form'
-import { fangoClient } from '@/lib/fango/client'
+import { FangoForm } from "@/lib/fango/form";
+import { fangoClient } from "@/lib/fango/client";
 
 export default function SheetConfigForm() {
-  return (
-    <FangoForm
-      type="google-sheet"
-      fangoClient={fangoClient}
-    />
-  )
+  return <FangoForm type="google-sheets" fangoClient={fangoClient} />;
 }

@@ -51,7 +51,9 @@ export interface FormItemConfigParams {
   refreshers?: string[]
   placeholder?: string
   showSearch?: boolean
-  options?: ((deps: any[], options: OptionsParams) => Promise<OptionsConfig>) | OptionsConfig
+  options?:
+    | ((deps: any[], options: OptionsParams) => Promise<OptionsConfig>)
+    | OptionsConfig
 }
 
 export type FormItemConfig = FormItemConfigParams & FormItemControlParams

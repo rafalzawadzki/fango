@@ -1,7 +1,25 @@
 import type { Nango } from '@nangohq/node'
 
-import { deleteSheetRow, findSheetName, findSheetRow, findSheets, findSpreadsheets, getSheetValues, insertSheetRow, updateSheetRow } from './actions'
-import type { DeleteSheetRowParams, FindSheetNameParams, FindSheetRowParams, FindSheetsParams, FindSpreadsheetsParams, GetSheetValuesParams, InsertSheetRowParams, UpdateSheetRowParams } from './actions'
+import {
+  deleteSheetRow,
+  findSheetName,
+  findSheetRow,
+  findSheets,
+  findSpreadsheets,
+  getSheetValues,
+  insertSheetRow,
+  updateSheetRow,
+} from './actions'
+import type {
+  DeleteSheetRowParams,
+  FindSheetNameParams,
+  FindSheetRowParams,
+  FindSheetsParams,
+  FindSpreadsheetsParams,
+  GetSheetValuesParams,
+  InsertSheetRowParams,
+  UpdateSheetRowParams,
+} from './actions'
 
 export class GoogleSheetServer {
   nango: Nango

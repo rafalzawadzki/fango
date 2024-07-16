@@ -1,4 +1,4 @@
-export type ConnectionType = 'google-sheet' | 'slack'
+export type ConnectionType = 'google-sheets' | 'slack'
 
 export interface Connection {
   id: string | number
@@ -11,5 +11,8 @@ export interface ConnectionDatabaseMethods {
   getConnection?: (connectionId: string) => Promise<Connection>
   getConnections?: (providerConfigKey?: string) => Promise<Connection[]>
   createConnection?: (connection: Partial<Connection>) => Promise<Connection>
-  updateConnection?: (connectionId: string, connectionName: string) => Promise<Connection>
+  updateConnection?: (
+    connectionId: string,
+    connectionName: string,
+  ) => Promise<Connection>
 }

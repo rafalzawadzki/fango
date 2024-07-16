@@ -12,14 +12,17 @@ export interface SendMessageToChannelParams {
   threadTs?: string
 }
 
-export async function sendMessageToChannel(nango: Nango, {
-  connectionId,
-  text,
-  conversationId,
-  username,
-  profilePicture,
-  threadTs,
-}: SendMessageToChannelParams) {
+export async function sendMessageToChannel(
+  nango: Nango,
+  {
+    connectionId,
+    text,
+    conversationId,
+    username,
+    profilePicture,
+    threadTs,
+  }: SendMessageToChannelParams,
+) {
   const { access_token } = await findConnectionCredentials(nango, connectionId)
 
   const data: any = {
@@ -29,12 +32,9 @@ export async function sendMessageToChannel(nango: Nango, {
 
   threadTs = threadTs ? processMessageTimestamp(threadTs) : undefined
 
-  if (username)
-    data.username = username
-  if (profilePicture)
-    data.icon_url = profilePicture
-  if (threadTs)
-    data.thread_ts = threadTs
+  if (username) data.username = username
+  if (profilePicture) data.icon_url = profilePicture
+  if (threadTs) data.thread_ts = threadTs
 
   const response = await nango.proxy({
     baseUrlOverride: BASIC_URL_PREFIX,

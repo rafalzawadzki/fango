@@ -2,7 +2,11 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import type { ConnectionType, FangoClient } from '@fango/client'
 import type { CreateFormParams } from './types/form'
-import { actionResolver, getFormConfigFuncByAction, normalizeFormList } from './integration-config'
+import {
+  actionResolver,
+  getFormConfigFuncByAction,
+  normalizeFormList,
+} from './integration-config'
 import type { ActionFormType, FormType } from './integration-config'
 import {
   Form,
@@ -43,7 +47,9 @@ export function FangoForm({
   const defaultAction = defaultForm || formList[0].value
   const formConfigFunc = getFormConfigFuncByAction(type, defaultAction)
   if (!formConfigFunc) {
-    throw new Error(`Form config function not found for action: ${defaultAction}`)
+    throw new Error(
+      `Form config function not found for action: ${defaultAction}`,
+    )
   }
   const defaultFormConfig = formConfigFunc(fangoClient)
 
@@ -54,7 +60,8 @@ export function FangoForm({
     },
   })
 
-  const [currentFormConfig, setCurrentFormConfig] = useState<CreateFormParams>(defaultFormConfig)
+  const [currentFormConfig, setCurrentFormConfig] =
+    useState<CreateFormParams>(defaultFormConfig)
 
   const handleActionChange = (action: FormType) => {
     const formConfigFunc = getFormConfigFuncByAction(type, action)
@@ -84,13 +91,11 @@ export function FangoForm({
                     <SelectValue placeholder="Select an action" />
                   </SelectTrigger>
                   <SelectContent>
-                    {
-                      formList.map(form => (
-                        <SelectItem key={form.value} value={form.value}>
-                          {form.label}
-                        </SelectItem>
-                      ))
-                    }
+                    {formList.map((form) => (
+                      <SelectItem key={form.value} value={form.value}>
+                        {form.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </FormControl>

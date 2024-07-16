@@ -5,9 +5,7 @@ import Typography from '@tailwindcss/typography'
 
 const config = {
   darkMode: ['class'],
-  content: [
-    './src/**/*.{ts,tsx}',
-  ],
+  content: ['./src/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
     container: {
@@ -22,37 +20,37 @@ const config = {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
       colors: {
-        'border': 'hsl(var(--border))',
-        'input': 'hsl(var(--input))',
-        'ring': 'hsl(var(--ring))',
-        'background': 'hsl(var(--background))',
-        'foreground': 'hsl(var(--foreground))',
-        'primary': {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         'primary-500': '#6e41e2',
-        'secondary': {
+        secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
-        'destructive': {
+        destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
         },
-        'muted': {
+        muted: {
           DEFAULT: 'hsl(var(--muted))',
           foreground: 'hsl(var(--muted-foreground))',
         },
-        'accent': {
+        accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
-        'popover': {
+        popover: {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
         },
-        'card': {
+        card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
@@ -78,10 +76,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    TailwindcssAnimate,
-    Typography,
-  ],
+  plugins: [TailwindcssAnimate, Typography],
 } satisfies Config
 
 export default config

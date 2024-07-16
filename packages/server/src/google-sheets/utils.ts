@@ -15,8 +15,7 @@ export function labelToColumn(label: string) {
   let column = 0
 
   for (let i = 0; i < label.length; i++) {
-    column
-      += (alphabet.indexOf(label[i]) + 1) * 26 ** (label.length - i - 1)
+    column += (alphabet.indexOf(label[i]) + 1) * 26 ** (label.length - i - 1)
   }
 
   return column - 1
@@ -24,7 +23,7 @@ export function labelToColumn(label: string) {
 
 export function objectToArray(obj: { [x: string]: any }) {
   const maxIndex = Math.max(
-    ...Object.keys(obj).map(key => labelToColumn(key)),
+    ...Object.keys(obj).map((key) => labelToColumn(key)),
   )
   const arr = new Array(maxIndex + 1)
   for (const key in obj) {
@@ -37,7 +36,9 @@ export function isString(str: unknown): str is string {
   return str != null && typeof str === 'string'
 }
 
-export function isNil<T>(value: T | null | undefined): value is null | undefined {
+export function isNil<T>(
+  value: T | null | undefined,
+): value is null | undefined {
   return value === null || value === undefined
 }
 

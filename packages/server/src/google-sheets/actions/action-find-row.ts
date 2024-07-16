@@ -14,16 +14,19 @@ export interface FindSheetRowParams {
   searchValue?: string
 }
 
-export async function findSheetRow(nango: Nango, {
-  sheetId,
-  spreadsheetId,
-  connectionId,
-  startingRow,
-  numberOfRows,
-  matchCase,
-  columnName: cn,
-  searchValue: sv,
-}: FindSheetRowParams) {
+export async function findSheetRow(
+  nango: Nango,
+  {
+    sheetId,
+    spreadsheetId,
+    connectionId,
+    startingRow,
+    numberOfRows,
+    matchCase,
+    columnName: cn,
+    searchValue: sv,
+  }: FindSheetRowParams,
+) {
   const credentials = await findConnectionCredentials(nango, connectionId)
   const accessToken = credentials.access_token
 
@@ -34,8 +37,10 @@ export async function findSheetRow(nango: Nango, {
     accessToken,
   })
 
-  const starting = (startingRow === '' || startingRow === undefined) ? 1 : Number(startingRow)
-  const numberOfRowsToReturn = (numberOfRows === '' || numberOfRows === undefined) ? 1 : Number(numberOfRows)
+  const starting =
+    startingRow === '' || startingRow === undefined ? 1 : Number(startingRow)
+  const numberOfRowsToReturn =
+    numberOfRows === '' || numberOfRows === undefined ? 1 : Number(numberOfRows)
 
   const newSheetName = `${sheetName}!A${starting}:ZZZ`
 
@@ -52,8 +57,7 @@ export async function findSheetRow(nango: Nango, {
 
   const data = response.data.values
 
-  if (!data)
-    return []
+  if (!data) return []
 
   let rows = []
   for (let i = 0; i < data.length; i++) {
@@ -88,8 +92,7 @@ export async function findSheetRow(nango: Nango, {
   for (let i = 0; i < values.length; i++) {
     const row = values[i]
 
-    if (matchedRowCount === numberOfRowsToReturn)
-      break
+    if (matchedRowCount === numberOfRowsToReturn) break
 
     if (searchValue === '') {
       matchingRows.push(rows[i])
@@ -98,8 +101,7 @@ export async function findSheetRow(nango: Nango, {
     }
 
     const keys = Object.keys(row)
-    if (keys.length <= columnNumber)
-      continue
+    if (keys.length <= columnNumber) continue
     const entry_value = row[keys[columnNumber]]
 
     if (entry_value === undefined) {
@@ -110,8 +112,7 @@ export async function findSheetRow(nango: Nango, {
         matchedRowCount += 1
         matchingRows.push(rows[i])
       }
-    }
-    else {
+    } else {
       if (entry_value.toLowerCase().includes(searchValue.toLowerCase())) {
         matchedRowCount += 1
         matchingRows.push(rows[i])

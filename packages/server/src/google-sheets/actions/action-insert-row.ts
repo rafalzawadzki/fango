@@ -11,9 +11,20 @@ export interface InsertSheetRowParams {
   asString?: boolean
 }
 
-export async function insertSheetRow(nango: Nango, { spreadsheetId, sheetId, connectionId, values, asString }: InsertSheetRowParams) {
+export async function insertSheetRow(
+  nango: Nango,
+  {
+    spreadsheetId,
+    sheetId,
+    connectionId,
+    values,
+    asString,
+  }: InsertSheetRowParams,
+) {
   const credentials = await findConnectionCredentials(nango, connectionId)
-  const valueInputOption = asString ? ValueInputOption.RAW : ValueInputOption.USER_ENTERED
+  const valueInputOption = asString
+    ? ValueInputOption.RAW
+    : ValueInputOption.USER_ENTERED
   const range = await findSheetName(nango, {
     sheetId,
     spreadsheetId,

@@ -1,14 +1,20 @@
 import type { Nango, OAuth2Credentials } from '@nangohq/node'
 import { BASIC_URL_PREFIX, PROVIDER_CONFIG_KEY } from '../constants'
 
-export async function findConnectionCredentials(nango: Nango, connectionId: string) {
-  const connectionConfig = await nango.getConnection(PROVIDER_CONFIG_KEY, connectionId)
+export async function findConnectionCredentials(
+  nango: Nango,
+  connectionId: string,
+) {
+  const connectionConfig = await nango.getConnection(
+    PROVIDER_CONFIG_KEY,
+    connectionId,
+  )
   return connectionConfig.credentials as OAuth2Credentials
 }
 
 export async function findChannels(nango: Nango, connectionId: string) {
   const { access_token } = await findConnectionCredentials(nango, connectionId)
-  const channels: { label: string, value: string }[] = []
+  const channels: { label: string; value: string }[] = []
   let cursor
   do {
     const response = await nango.proxy({
@@ -27,12 +33,20 @@ export async function findChannels(nango: Nango, connectionId: string) {
       },
     })
 
-    const data = response.data as { channels: { id: string, name: string }[], response_metadata: { next_cursor: string }, ok?: boolean, error?: string }
+    const data = response.data as {
+      channels: { id: string; name: string }[]
+      response_metadata: { next_cursor: string }
+      ok?: boolean
+      error?: string
+    }
     if (!data.ok) {
       throw new Error(data.error)
     }
     channels.push(
-      ...data.channels.map(channel => ({ label: channel.name, value: channel.id })),
+      ...data.channels.map((channel) => ({
+        label: channel.name,
+        value: channel.id,
+      })),
     )
     cursor = data.response_metadata.next_cursor
   } while (cursor !== '' && channels.length < 600)

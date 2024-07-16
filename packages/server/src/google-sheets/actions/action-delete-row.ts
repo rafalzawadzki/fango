@@ -9,7 +9,10 @@ export interface DeleteSheetRowParams {
   rowId: string
 }
 
-export async function deleteSheetRow(nango: Nango, { spreadsheetId, connectionId, sheetId, rowId }: DeleteSheetRowParams) {
+export async function deleteSheetRow(
+  nango: Nango,
+  { spreadsheetId, connectionId, sheetId, rowId }: DeleteSheetRowParams,
+) {
   const credentials = await findConnectionCredentials(nango, connectionId)
   const accessToken = credentials.access_token
 

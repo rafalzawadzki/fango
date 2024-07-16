@@ -13,7 +13,10 @@ export interface UpdateSheetRowParams {
   firstRowHeaders?: boolean
 }
 
-export async function updateSheetRow(nango: Nango, { spreadsheetId, connectionId, sheetId, values, rowId }: UpdateSheetRowParams) {
+export async function updateSheetRow(
+  nango: Nango,
+  { spreadsheetId, connectionId, sheetId, values, rowId }: UpdateSheetRowParams,
+) {
   const credentials = await findConnectionCredentials(nango, connectionId)
   const accessToken = credentials.access_token
 
@@ -24,9 +27,7 @@ export async function updateSheetRow(nango: Nango, { spreadsheetId, connectionId
     accessToken,
   })
 
-  const formattedValues = values.map(value =>
-    value === '' ? null : value,
-  )
+  const formattedValues = values.map((value) => (value === '' ? null : value))
   if (formattedValues.length > 0) {
     const rowIndex = Number(rowId)
     values = stringifyArray(formattedValues)
@@ -59,11 +60,9 @@ export async function updateSheetRow(nango: Nango, { spreadsheetId, connectionId
     )
 
     return { updates: { ...res.data }, row: updatedRowNumber }
-  }
-  else {
+  } else {
     throw new Error(
-      `Values passed are empty or not array ${
-      JSON.stringify(formattedValues)}`,
+      `Values passed are empty or not array ${JSON.stringify(formattedValues)}`,
     )
   }
 }
