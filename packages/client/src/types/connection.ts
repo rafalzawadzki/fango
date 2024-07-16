@@ -1,4 +1,4 @@
-export type ConnectionType = 'google-sheets' | 'slack'
+export type ConnectionType = 'google-sheet' | 'slack'
 
 export interface Connection {
   id: string | number

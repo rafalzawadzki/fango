@@ -4,7 +4,7 @@ import { PROVIDER_CONFIG_KEY } from './constants'
 import type { FangoClient } from '@fango/client'
 
 export function getUpdateRowForm(fangoClient: FangoClient): CreateFormParams {
-  const actions = fangoClient.actions.get('google-sheets') as any
+  const actions = fangoClient.actions.get('google-sheet') as any
   const commonField = getCommonField(fangoClient)
   return {
     name: 'Update Row',

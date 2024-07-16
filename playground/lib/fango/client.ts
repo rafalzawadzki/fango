@@ -1,10 +1,10 @@
-import { FangoClient } from "@fango/client";
+import { FangoClient } from '@fango/client'
 import {
   createConnection,
   getConnections,
   updateConnection,
-} from "@/lib/database";
-import { findChannelsAction, sendMessageToChannelAction } from "@/action/slack";
+} from '@/lib/database'
+import { findChannelsAction, sendMessageToChannelAction } from '@/action/slack'
 import {
   deleteSheetRowAction,
   findSheetNameAction,
@@ -14,25 +14,25 @@ import {
   getSheetValuesAction,
   insertSheetRowAction,
   updateSheetRowAction,
-} from "@/action/google-sheets";
+} from '@/action/google-sheet'
 
 const fangoClient = new FangoClient(
   process.env.NANGO_HOST!,
-  process.env.NEXT_PUBLIC_NANGO_PUBLIC_KEY!
-);
+  process.env.NEXT_PUBLIC_NANGO_PUBLIC_KEY!,
+)
 
 fangoClient.setConnectionDatabase({
   getConnections,
   updateConnection,
   createConnection,
-});
+})
 
-fangoClient.setServerActions("slack", {
+fangoClient.setServerActions('slack', {
   findChannelsAction,
   sendMessageToChannelAction,
-});
+})
 
-fangoClient.setServerActions("google-sheets", {
+fangoClient.setServerActions('google-sheet', {
   insertSheetRowAction,
   findSheetRowAction,
   updateSheetRowAction,
@@ -41,6 +41,6 @@ fangoClient.setServerActions("google-sheets", {
   findSpreadsheetsAction,
   findSheetNameAction,
   getSheetValuesAction,
-});
+})
 
-export { fangoClient };
+export { fangoClient }

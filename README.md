@@ -31,7 +31,7 @@ fangoServer.setConnectionDatabase({
 
 // server-side: calling the APIs, can be used to verify auth
 // (in Next would be API routes or server actions)
-fangoClient.setServerActions('google-sheets', {
+fangoClient.setServerActions('google-sheet', {
   // 'use server'
   findSpreadsheetsAction: (data) => {
     // optionally check permissions etc
@@ -42,7 +42,7 @@ fangoClient.setServerActions('google-sheets', {
 // client-side: will render form for specific integration
 <FangoForm
   fangoClient={fangoClient}
-  type='google-sheets'
+  type='google-sheet'
   /* can do something with the form values */
   onSubmit={(connectionConfig) => save(connectionConfig)}
 />
@@ -50,7 +50,7 @@ fangoClient.setServerActions('google-sheets', {
 // server-side: run actions when needed
 fangoServer.run({
   connectionId: 'somestring',
-  type: 'google-sheets',
+  type: 'google-sheet',
   action: 'insert-row',
   payload: object
 })

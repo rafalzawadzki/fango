@@ -17,6 +17,6 @@ export interface SlackAction {
 export type Action = GoogleSheetAction | SlackAction
 
 export interface ActionMap {
-  'google-sheets': GoogleSheetAction
+  'google-sheet': GoogleSheetAction
   slack: SlackAction
 }

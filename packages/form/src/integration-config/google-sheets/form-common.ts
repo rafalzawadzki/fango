@@ -3,7 +3,7 @@ import { FormItemFactory } from '@/forms'
 
 export function getCommonField(fangoClient: FangoClient) {
   const { findSheetsAction, findSpreadsheetsAction, getSheetValuesAction } =
-    fangoClient.actions.get('google-sheets') as GoogleSheetAction
+    fangoClient.actions.get('google-sheet') as GoogleSheetAction
 
   return {
     auth: FormItemFactory.Switch({
