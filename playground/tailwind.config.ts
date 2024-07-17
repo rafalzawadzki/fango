@@ -9,6 +9,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './lib/**/*.{ts,tsx}',
+    './node_modules/@fango/form/dist/*.js',
   ],
   prefix: '',
   theme: {

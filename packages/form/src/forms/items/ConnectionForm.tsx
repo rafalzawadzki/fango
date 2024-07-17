@@ -61,8 +61,8 @@ export function ConnectionForm({
   const [editingConnectionId, setEditingConnectionId] = useState('')
   const addConnectionId = useRef<string>('')
 
-  const { createConnection, getConnections, updateConnection } =
-    fangoClient.connection_db || {}
+  const { createConnection, getConnections, updateConnection }
+    = fangoClient.connection_db || {}
 
   if (!createConnection || !getConnections || !updateConnection) {
     throw new Error('Connection DB not available')
@@ -100,14 +100,16 @@ export function ConnectionForm({
   }
   const handleAuth = async () => {
     const valid = await addForm.trigger('name')
-    if (!valid || !providerConfigKey) return
+    if (!valid || !providerConfigKey)
+      return
     setLoading(true)
     try {
       if (editingConnectionId) {
         await fangoClient.nango.auth(providerConfigKey, editingConnectionId, {
           detectClosedAuthWindow: true,
         })
-      } else {
+      }
+      else {
         const id = generateConnectionId()
         addConnectionId.current = id
         await fangoClient.nango.auth(providerConfigKey, id, {
@@ -117,7 +119,8 @@ export function ConnectionForm({
         setEditingConnectionId(id)
       }
       setAuth(true)
-    } catch (e) {
+    }
+    catch (e) {
       console.error(e)
     }
     setLoading(false)
@@ -128,7 +131,8 @@ export function ConnectionForm({
     setOpen(false)
   }
   const handleSave = async () => {
-    if (!addConnectionId.current && !editingConnectionId) return
+    if (!addConnectionId.current && !editingConnectionId)
+      return
     setLoading(true)
     if (addConnectionId.current) {
       await createConnection({
@@ -136,7 +140,8 @@ export function ConnectionForm({
         connectionName: addForm.getValues('name'),
         type: providerConfigKey as any,
       })
-    } else {
+    }
+    else {
       await updateConnection(editingConnectionId, addForm.getValues('name'))
     }
     await handleRefreshConnections()
@@ -148,9 +153,10 @@ export function ConnectionForm({
 
   const handleRefresh = async () => {
     const connection = connections.find(
-      (connection) => connection.id === field.value,
+      connection => connection.id === field.value,
     )
-    if (!connection) return
+    if (!connection)
+      return
     setAuth(true)
     setEditingConnectionId(connection.id)
     addForm.setValue('name', connection.name || '')
@@ -173,10 +179,11 @@ export function ConnectionForm({
           <SelectContent>
             <DialogTrigger asChild>
               <div className="flex items-center justify-center gap-1 h-10 text-sm border-b cursor-pointer">
-                <Plus className="w-4 h-4" /> New Connection
+                <Plus className="w-4 h-4" />
+                New Connection
               </div>
             </DialogTrigger>
-            {connections.map((connection) => (
+            {connections.map(connection => (
               <SelectItem key={connection.id} value={connection.id}>
                 {connection.name}
               </SelectItem>
@@ -219,29 +226,33 @@ export function ConnectionForm({
                 </FormItem>
               )}
             />
-            {auth && !!editingConnectionId ? (
-              <Button
-                className="w-full"
-                variant="destructive"
-                type="button"
-                onClick={handleDisconnect}
-              >
-                Disconnect
-              </Button>
-            ) : (
-              <Button
-                className="w-full"
-                onClick={handleAuth}
-                disabled={loading}
-                type="button"
-              >
-                {loading ? (
-                  <LoaderCircle size={32} className="animate-spin" />
-                ) : (
-                  'Connect'
+            {auth && !!editingConnectionId
+              ? (
+                  <Button
+                    className="w-full"
+                    variant="destructive"
+                    type="button"
+                    onClick={handleDisconnect}
+                  >
+                    Disconnect
+                  </Button>
+                )
+              : (
+                  <Button
+                    className="w-full"
+                    onClick={handleAuth}
+                    disabled={loading}
+                    type="button"
+                  >
+                    {loading
+                      ? (
+                          <LoaderCircle size={32} className="animate-spin" />
+                        )
+                      : (
+                          'Connect'
+                        )}
+                  </Button>
                 )}
-              </Button>
-            )}
           </form>
         </Form>
         <DialogFooter>
@@ -249,11 +260,13 @@ export function ConnectionForm({
             Cancel
           </Button>
           <Button onClick={handleSave} disabled={loading || !auth}>
-            {loading ? (
-              <LoaderCircle size={32} className="animate-spin" />
-            ) : (
-              'Save'
-            )}
+            {loading
+              ? (
+                  <LoaderCircle size={32} className="animate-spin" />
+                )
+              : (
+                  'Save'
+                )}
           </Button>
         </DialogFooter>
       </DialogContent>
